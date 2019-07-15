@@ -1,6 +1,7 @@
 # set CPUS for Linux or FreeBSD
 
 TARGET=libtest.so
+TARGET=test
 PLATFORM := $(shell uname)
 DIR_PATH := $(shell pwd)
 PLATFORM_VERSION := $(shell uname -r| awk -F 'el' '{printf("el%d", substr($$2,1,1))}')
@@ -13,6 +14,7 @@ CXX11 := env LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$(GCC472_PATH)/lib:/usr/local/mp
 #CXX11=g++
 CXXFLAGS := -g -O0 -std=c++11 -fno-strict-aliasing -Wall -Wno-deprecated -Wno-sign-compare -fPIC\
      -I../include \
+     -Iutil \
 	 -I.
 
  LDFLAGS := -pthread \
@@ -24,7 +26,9 @@ CXXFLAGS := -g -O0 -std=c++11 -fno-strict-aliasing -Wall -Wno-deprecated -Wno-si
 
 	 
 
-SRC := 	$(wildcard *.cc)
+SRC := 	$(wildcard *.cc) \
+	    $(wildcard util/*.cc) \
+	    $(wildcard util/unicode/*.cc)
 
 
 OBJ := $(patsubst %.cc, %.o, $(SRC))
@@ -42,7 +46,8 @@ all:
 target: $(TARGET) $(BIN)
 
 $(TARGET): $(OBJ)
-	$(CXX11) -std=c++11 $^ -Wl,-soname $(RTFLAGS) $(LDFLAGS) $(LIBS) -shared -o -fPIC -o $(TARGET) -Xlinker -unresolved-symbols=ignore-in-shared-libs
+	#$(CXX11) -std=c++11 $^ -Wl,-soname $(RTFLAGS) $(LDFLAGS) $(LIBS) -shared -o -fPIC -o $(TARGET) -Xlinker -unresolved-symbols=ignore-in-shared-libs
+	$(CXX11) -std=c++11 $^ -Wl,-soname $(RTFLAGS) $(LDFLAGS) $(LIBS) -o $(TARGET) -Xlinker -unresolved-symbols=ignore-in-shared-libs
 
 %.o : %.cc
 	$(CXX11) -std=c++11 -c $(CXXFLAGS) $< -o $@
@@ -58,6 +63,6 @@ clean:
 	-rm -rf gen-cpp $(OBJ) $(TARGET) *.pid *.log *.core $(DEP) $(GEN_DEP) *.so.* *.pb.cc *.pb.h *.o *.proto test
 
 test:
-	$(CXX11) -g $(wildcard *.cc) $(CXXFLAGS) $(LDFLAGS) $(LIBS) -o $@
+	$(CXX11) -g $(SRC) $(CXXFLAGS) $(LDFLAGS) $(LIBS) -o $@
 
 .PHONY: all target clean test

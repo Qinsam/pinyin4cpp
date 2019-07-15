@@ -1,0 +1,8 @@
+#ifndef __HANYUPINYINOUTPUTFORMAT_H_
+#define __HANYUPINYINOUTPUTFORMAT_H_
+
+class HanyuPinyinOutputFormat {
+
+};
+
+#endif // __HANYUPINYINOUTPUTFORMAT_H_

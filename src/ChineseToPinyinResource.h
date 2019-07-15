@@ -7,6 +7,12 @@
 #include <unordered_map>
 #include "const.h"
 
+#define ADD_ITEM(unicode,args...) \
+    unicode_str=#unicode; \
+    pinyin_str = #args; \
+    addPinyinItem(unicode_str,pinyin_str);
+
+
 struct PinYinElement {
     string pinyin_;
     int tone_;  //音调
@@ -31,14 +37,13 @@ class ChineseToPinyinResource {
 public:
     ~ChineseToPinyinResource();
     static ChineseToPinyinResource *getInstance();
-
+    const PinYinInfoPtr getHanyuPinyinInfoFromChar(wchar_t ch);
 private:
     ChineseToPinyinResource();
     static ChineseToPinyinResource *instance_;
     unordered_map<string,PinYinInfoPtr> unicodeToHanyuPinyinTable_;
     void initResource();
-    bool isValidRecord(string recod);
-    const PinYinInfoPtr getHanyuPinyinRecordFromChar(wchar_t ch);
+    void addPinyinItem(const string &unicode,const string &pinyins);
 };
 
 #endif // __CHINESETOPINYINRESOURCE_H_
