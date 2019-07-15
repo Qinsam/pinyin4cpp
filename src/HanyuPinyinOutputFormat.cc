@@ -8,6 +8,7 @@ void HanyuPinyinOutputFormat::restoreDefault() {
     setVCharType(HanyuPinyinVCharType::WITH_U_AND_COLON);
     setCaseType(HanyuPinyinCaseType::LOWERCASE);
     setToneType(HanyuPinyinToneType::WITH_TONE_NUMBER);
+    setSpellType(HanyuPinyinSpellType::FULL_LETTER);
 }
 
 const HanyuPinyinCaseType *HanyuPinyinOutputFormat::getCaseType() const{
@@ -32,4 +33,12 @@ const HanyuPinyinVCharType *HanyuPinyinOutputFormat::getVCharType() const{
 
 void HanyuPinyinOutputFormat::setVCharType(const HanyuPinyinVCharType *vCharType) {
     vCharType_ = vCharType;
+}
+
+const HanyuPinyinSpellType *HanyuPinyinOutputFormat::getSpellType() const {
+    return spellType_;
+}
+
+void HanyuPinyinOutputFormat::setSpellType(const HanyuPinyinSpellType *spellType) {
+    spellType_ = spellType;
 }
