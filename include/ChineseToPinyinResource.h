@@ -5,7 +5,9 @@
 #include <vector>
 #include <memory>
 #include <unordered_map>
-#include "const.h"
+#include "string_util.h"
+
+using namespace std;
 
 #define ADD_ITEM(unicode,args...) \
     unicode_str=#unicode; \
@@ -14,10 +16,10 @@
 
 
 struct PinYinElement {
-    string pinyin_;
+    String pinyin_;
     int tone_;  //音调
     PinYinElement() {
-        pinyin_="";
+        pinyin_=L"";
         tone_=0;
     }
 };

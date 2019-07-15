@@ -1,5 +1,5 @@
 #include "PinyinFormatter.h"
 
-string PinyinFormatter::formatHanyuPinyin(const string &pinyinStr,const HanyuPinyinOutputFormat &outputFormat) {
+String PinyinFormatter::formatHanyuPinyin(const String &pinyinStr,const HanyuPinyinOutputFormat &outputFormat) {
     return pinyinStr;
 }

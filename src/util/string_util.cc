@@ -2,12 +2,11 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "util/string_split.h"
+#include "util/string_util.h"
 
 namespace util {
 
-    void SplitString(const std::string& s, std::vector<std::string>& v, const std::string& c)
-    {
+    void StringUtil::splitString(const std::string& s, std::vector<std::string>& v, const std::string& c) {
         std::string::size_type pos1, pos2;
         pos2 = s.find(c);
         pos1 = 0;
@@ -21,4 +20,12 @@ namespace util {
         if(pos1 != s.length())
             v.push_back(s.substr(pos1));
     }
+
+	String StringUtil::utf8ToUnicode(const std::string& str) {
+    	return utf_to_utf<wchar_t>(str.c_str(), str.c_str() + str.size());
+	}
+
+	std::string StringUtil::unicodeToUtf8(String& str) {
+    	return utf_to_utf<char>(str.c_str(), str.c_str() + str.size());
+	}  
 }  // namespace util

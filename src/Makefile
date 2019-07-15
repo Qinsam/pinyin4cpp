@@ -14,15 +14,20 @@ CXX11 := env LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$(GCC472_PATH)/lib:/usr/local/mp
 #CXX11=g++
 CXXFLAGS := -g -O0 -std=c++11 -fno-strict-aliasing -Wall -Wno-deprecated -Wno-sign-compare -fPIC\
      -I../include \
-     -Iutil \
-	 -I.
+     -I../include/util \
+	 -I. \
+	 -I /home/qinweiwei/qmodule/boost/include
 
  LDFLAGS := -pthread \
      -L/usr/local/lib \
      -L/usr/local/lib64/ \
-     -L/usr/lib64/ 
+     -L/usr/lib64/ \
+	 -L/home/qinweiwei/qmodule/boost/lib
 
- LIBS := 
+ LIBS := -lboost_chrono \
+	 -lboost_system \
+ 	 -lboost_thread \
+	 -lboost_locale
 
 	 
 

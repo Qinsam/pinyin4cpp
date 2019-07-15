@@ -1,6 +1,5 @@
 #include "ChineseToPinyinResource.h"
 #include "pinyindb/unicode_to_hanyu_pinyin.h"
-#include "string_split.h"
 
 ChineseToPinyinResource* ChineseToPinyinResource::instance_ = NULL;
 
@@ -28,7 +27,7 @@ void ChineseToPinyinResource::initResource() {
 
 void ChineseToPinyinResource::addPinyinItem(const string &unicode,const string &pinyins) {
     vector<string> elements;
-    util::SplitString(pinyins,elements,",");
+    util::StringUtil::splitString(pinyins,elements,",");
     if(elements.empty()) {
         return;
     }
@@ -36,7 +35,7 @@ void ChineseToPinyinResource::addPinyinItem(const string &unicode,const string &
     pinYinInfoPtr->unicode_ = unicode;
     for(size_t i=0;i<elements.size();i++) {
         PinYinElement pyEle;
-        pyEle.pinyin_=elements[i].substr(0,elements[i].size()-1);
+        pyEle.pinyin_=util::StringUtil::utf8ToUnicode(elements[i].substr(0,elements[i].size()-1));
         pyEle.tone_ = atoi(elements[i].substr(elements[i].size()-1,1).c_str());
         pinYinInfoPtr->pinyinList_.push_back(pyEle);
     }
@@ -47,7 +46,6 @@ const PinYinInfoPtr ChineseToPinyinResource::getHanyuPinyinInfoFromChar(wchar_t 
     int codePointOfChar = ch;
     char buf[10]={0};
     sprintf(buf,"%02X",codePointOfChar);
-    cout<<"buf="<<buf<<endl;
     if(unicodeToHanyuPinyinTable_.find(buf) == unicodeToHanyuPinyinTable_.end()) {
         PinYinInfoPtr pyiPtr;
         return pyiPtr;

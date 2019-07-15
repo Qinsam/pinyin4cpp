@@ -5,10 +5,11 @@
 using namespace std;
 
 #include "HanyuPinyinOutputFormat.h"
+#include "string_util.h"
 
 class PinyinFormatter {
 public:
-    static string formatHanyuPinyin(const string &pinyinStr,const HanyuPinyinOutputFormat &outputFormat);
+    static String formatHanyuPinyin(const String &pinyinStr,const HanyuPinyinOutputFormat &outputFormat);
 };
 
 #endif // __PINYINFORMATTER_H_
