@@ -27,5 +27,19 @@ namespace util {
 
 	std::string StringUtil::unicodeToUtf8(String& str) {
     	return utf_to_utf<char>(str.c_str(), str.c_str() + str.size());
-	}  
+	}
+
+    String StringUtil::replaceAll(const String &source,const wchar_t &oldChar,const wchar_t &newChar) {
+        String res;
+        res.reserve(source.size());
+        for(size_t i=0;i<=source.size();i++) {
+            if(oldChar == source[i]) {
+                res[i]=newChar;
+            } else {
+                res[i]=source[i];
+            }
+        }
+        res.shrink_to_fit();
+        return res;
+    }
 }  // namespace util

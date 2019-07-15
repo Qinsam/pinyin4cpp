@@ -36,7 +36,7 @@ void ChineseToPinyinResource::addPinyinItem(const string &unicode,const string &
     for(size_t i=0;i<elements.size();i++) {
         PinYinElement pyEle;
         pyEle.pinyin_=util::StringUtil::utf8ToUnicode(elements[i].substr(0,elements[i].size()-1));
-        pyEle.tone_ = atoi(elements[i].substr(elements[i].size()-1,1).c_str());
+        pyEle.tone_ = util::StringUtil::utf8ToUnicode(elements[i].substr(elements[i].size()-1,1));
         pinYinInfoPtr->pinyinList_.push_back(pyEle);
     }
     unicodeToHanyuPinyinTable_[unicode]=pinYinInfoPtr;

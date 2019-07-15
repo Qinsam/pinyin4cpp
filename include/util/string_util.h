@@ -19,6 +19,7 @@ namespace util {
         static void splitString(const std::string& s, std::vector<std::string>& v, const std::string& c);
         static String utf8ToUnicode(const std::string& str);
         static std::string unicodeToUtf8(String& str);
+        static String replaceAll(const String &source,const wchar_t &oldChar,const wchar_t &newChar);
     };
 }
 // namespace util

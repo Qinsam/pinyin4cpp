@@ -1,7 +1,7 @@
 #include "HanyuPinyinCaseType.h"
 
-HanyuPinyinCaseType *UPPERCASE = new HanyuPinyinCaseType("UPPERCASE");
-HanyuPinyinCaseType *LOWERCASE = new HanyuPinyinCaseType("LOWERCASE");
+const HanyuPinyinCaseType *HanyuPinyinCaseType::UPPERCASE = new HanyuPinyinCaseType("UPPERCASE");
+const HanyuPinyinCaseType *HanyuPinyinCaseType::LOWERCASE = new HanyuPinyinCaseType("LOWERCASE");
 
 HanyuPinyinCaseType::HanyuPinyinCaseType(string name) {
     setName(name);

@@ -18,7 +18,8 @@ string PinyinHelper::toHanYuPinyinString(const string &str,const HanyuPinyinOutp
             before_success=false;
             continue;
         }else {
-            res+=pyiPtr->pinyinList_[0].pinyin_;
+            res+=PinyinFormatter::formatHanyuPinyin(pyiPtr->pinyinList_[0].pinyin_,
+                                                    pyiPtr->pinyinList_[0].tone_,format);
             before_success=true;
         }
     }
@@ -36,7 +37,7 @@ vector<String> PinyinHelper::toHanyuPinyinStringArray(const wchar_t &ch) {
         return res;
     }
     for(size_t i=0;i<pyiPtr->pinyinList_.size();i++) {
-        res.push_back(pyiPtr->pinyinList_[i].pinyin_);
+        res.push_back(pyiPtr->pinyinList_[i].pinyin_+pyiPtr->pinyinList_[i].tone_);
     }
     return res;
 }
@@ -49,7 +50,8 @@ vector<String> PinyinHelper::toHanyuPinyinStringArray(const wchar_t &ch,const Ha
         return res;
     }
     for(size_t i=0;i<pyiPtr->pinyinList_.size();i++) {
-        res.push_back(PinyinFormatter::formatHanyuPinyin(pyiPtr->pinyinList_[i].pinyin_,format));
+        res.push_back(PinyinFormatter::formatHanyuPinyin(pyiPtr->pinyinList_[i].pinyin_,
+                                                         pyiPtr->pinyinList_[i].tone_,format));
     }
     return res;
 }

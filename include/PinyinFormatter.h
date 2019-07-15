@@ -9,7 +9,8 @@ using namespace std;
 
 class PinyinFormatter {
 public:
-    static String formatHanyuPinyin(const String &pinyinStr,const HanyuPinyinOutputFormat &outputFormat);
+    static String formatHanyuPinyin(const String &pinyinStr,const String &tone,const HanyuPinyinOutputFormat &outputFormat);
+    //void convertToneNumber2ToneMark(String pinyinStr,String tone);
 };
 
 #endif // __PINYINFORMATTER_H_

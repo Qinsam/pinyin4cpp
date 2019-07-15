@@ -17,10 +17,10 @@ using namespace std;
 
 struct PinYinElement {
     String pinyin_;
-    int tone_;  //音调
+    String tone_;  //音调
     PinYinElement() {
         pinyin_=L"";
-        tone_=0;
+        tone_=L"";
     }
 };
 
