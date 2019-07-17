@@ -18,3 +18,16 @@ make install
 通过头文件和动态库使用
 
 demo/test.cc 编译生成   $(install_dir)/bin/test 
+
+
+用法：
+    PinyinHelper ph;
+    HanyuPinyinOutputFormat hpof;
+    hpof.setCaseType(HanyuPinyinCaseType::UPPERCASE);           //拼音大写
+    hpof.setCaseType(HanyuPinyinCaseType::LOWERCASE);           //拼音小写（默认值）
+    hpof.setToneType(HanyuPinyinToneType::WITHOUT_TONE);        //不要声调
+    hpof.setToneType(HanyuPinyinToneType::WITH_TONE_NUMBER);    //声调放在拼音后面用数字表示(默认值)
+    hpof.setVCharType(HanyuPinyinVCharType::WITH_V);            //u:转成ü  (默认不转换)
+    hpof.setSpellType(HanyuPinyinSpellType::FIRST_LETTER);      //首字母简拼
+    hpof.setSpellType(HanyuPinyinSpellType::FULL_LETTER);       //全拼（默认值）
+    string res=ph.toHanYuPinyinString(s,hpof);
