@@ -9,3 +9,12 @@ pinyin4j cpp版本
 4、支持输出简拼
 
 依赖：boost
+
+install：
+./configure --prefix= $(install_dir)
+make
+make install
+
+通过头文件和动态库使用
+
+demo/test.cc 编译生成   $(install_dir)/bin/test 
