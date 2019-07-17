@@ -14,7 +14,6 @@
 
 @SET_MAKE@
 
-
 VPATH = @srcdir@
 am__is_gnu_make = test -n '$(MAKEFILE_LIST)' && test -n '$(MAKELEVEL)'
 am__make_running_with_option = \
@@ -77,13 +76,11 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-bin_PROGRAMS = test$(EXEEXT)
-libpinyin4cpplib_PROGRAMS = libpinyin4cpp.so$(EXEEXT)
 subdir = .
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	$(top_srcdir)/configure $(am__configure_deps) \
-	$(srcdir)/config.h.in depcomp $(include_HEADERS) \
-	$(noinst_HEADERS) README install-sh missing
+	$(srcdir)/config.h.in $(include_HEADERS) README depcomp \
+	install-sh missing
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -94,35 +91,6 @@ mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
-am__installdirs = "$(DESTDIR)$(bindir)" \
-	"$(DESTDIR)$(libpinyin4cpplibdir)" "$(DESTDIR)$(includedir)"
-PROGRAMS = $(bin_PROGRAMS) $(libpinyin4cpplib_PROGRAMS)
-am_libpinyin4cpp_so_OBJECTS =  \
-	libpinyin4cpp_so-ChineseToPinyinResource.$(OBJEXT) \
-	libpinyin4cpp_so-HanyuPinyinCaseType.$(OBJEXT) \
-	libpinyin4cpp_so-HanyuPinyinOutputFormat.$(OBJEXT) \
-	libpinyin4cpp_so-HanyuPinyinSpellType.$(OBJEXT) \
-	libpinyin4cpp_so-HanyuPinyinToneType.$(OBJEXT) \
-	libpinyin4cpp_so-HanyuPinyinVCharType.$(OBJEXT) \
-	libpinyin4cpp_so-PinyinFormatter.$(OBJEXT) \
-	libpinyin4cpp_so-PinyinHelper.$(OBJEXT) \
-	libpinyin4cpp_so-string_util.$(OBJEXT)
-libpinyin4cpp_so_OBJECTS = $(am_libpinyin4cpp_so_OBJECTS)
-libpinyin4cpp_so_LDADD = $(LDADD)
-libpinyin4cpp_so_LINK = $(CXXLD) $(libpinyin4cpp_so_CXXFLAGS) \
-	$(CXXFLAGS) $(libpinyin4cpp_so_LDFLAGS) $(LDFLAGS) -o $@
-am_test_OBJECTS = test-ChineseToPinyinResource.$(OBJEXT) \
-	test-HanyuPinyinCaseType.$(OBJEXT) \
-	test-HanyuPinyinOutputFormat.$(OBJEXT) \
-	test-HanyuPinyinSpellType.$(OBJEXT) \
-	test-HanyuPinyinToneType.$(OBJEXT) \
-	test-HanyuPinyinVCharType.$(OBJEXT) \
-	test-PinyinFormatter.$(OBJEXT) test-PinyinHelper.$(OBJEXT) \
-	test-string_util.$(OBJEXT) test-test.$(OBJEXT)
-test_OBJECTS = $(am_test_OBJECTS)
-test_DEPENDENCIES =
-test_LINK = $(CXXLD) $(test_CXXFLAGS) $(CXXFLAGS) $(test_LDFLAGS) \
-	$(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -135,29 +103,16 @@ AM_V_at = $(am__v_at_@AM_V@)
 am__v_at_ = $(am__v_at_@AM_DEFAULT_V@)
 am__v_at_0 = @
 am__v_at_1 = 
-DEFAULT_INCLUDES = -I.@am__isrc@
-depcomp = $(SHELL) $(top_srcdir)/depcomp
-am__depfiles_maybe = depfiles
-am__mv = mv -f
-AM_V_lt = $(am__v_lt_@AM_V@)
-am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
-am__v_lt_0 = --silent
-am__v_lt_1 = 
-CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
-	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
-AM_V_CXX = $(am__v_CXX_@AM_V@)
-am__v_CXX_ = $(am__v_CXX_@AM_DEFAULT_V@)
-am__v_CXX_0 = @echo "  CXX     " $@;
-am__v_CXX_1 = 
-CXXLD = $(CXX)
-CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
-	-o $@
-AM_V_CXXLD = $(am__v_CXXLD_@AM_V@)
-am__v_CXXLD_ = $(am__v_CXXLD_@AM_DEFAULT_V@)
-am__v_CXXLD_0 = @echo "  CXXLD   " $@;
-am__v_CXXLD_1 = 
-SOURCES = $(libpinyin4cpp_so_SOURCES) $(test_SOURCES)
-DIST_SOURCES = $(libpinyin4cpp_so_SOURCES) $(test_SOURCES)
+SOURCES =
+DIST_SOURCES =
+RECURSIVE_TARGETS = all-recursive check-recursive cscopelist-recursive \
+	ctags-recursive dvi-recursive html-recursive info-recursive \
+	install-data-recursive install-dvi-recursive \
+	install-exec-recursive install-html-recursive \
+	install-info-recursive install-pdf-recursive \
+	install-ps-recursive install-recursive installcheck-recursive \
+	installdirs-recursive pdf-recursive ps-recursive \
+	tags-recursive uninstall-recursive
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -190,7 +145,16 @@ am__uninstall_files_from_dir = { \
     || { echo " ( cd '$$dir' && rm -f" $$files ")"; \
          $(am__cd) "$$dir" && rm -f $$files; }; \
   }
-HEADERS = $(include_HEADERS) $(noinst_HEADERS)
+am__installdirs = "$(DESTDIR)$(includedir)"
+HEADERS = $(include_HEADERS)
+RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\
+  distclean-recursive maintainer-clean-recursive
+am__recursive_targets = \
+  $(RECURSIVE_TARGETS) \
+  $(RECURSIVE_CLEAN_TARGETS) \
+  $(am__extra_recursive_targets)
+AM_RECURSIVE_TARGETS = $(am__recursive_targets:-recursive=) TAGS CTAGS \
+	cscope distdir dist dist-all distcheck
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) \
 	$(LISP)config.h.in
 # Read a list of newline-separated strings from the standard input,
@@ -212,7 +176,7 @@ am__define_uniq_tagged_files = \
 ETAGS = etags
 CTAGS = ctags
 CSCOPE = cscope
-AM_RECURSIVE_TARGETS = cscope
+DIST_SUBDIRS = $(SUBDIRS)
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -223,6 +187,31 @@ am__remove_distdir = \
       || { sleep 5 && rm -rf "$(distdir)"; }; \
   else :; fi
 am__post_remove_distdir = $(am__remove_distdir)
+am__relativize = \
+  dir0=`pwd`; \
+  sed_first='s,^\([^/]*\)/.*$$,\1,'; \
+  sed_rest='s,^[^/]*/*,,'; \
+  sed_last='s,^.*/\([^/]*\)$$,\1,'; \
+  sed_butlast='s,/*[^/]*$$,,'; \
+  while test -n "$$dir1"; do \
+    first=`echo "$$dir1" | sed -e "$$sed_first"`; \
+    if test "$$first" != "."; then \
+      if test "$$first" = ".."; then \
+        dir2=`echo "$$dir0" | sed -e "$$sed_last"`/"$$dir2"; \
+        dir0=`echo "$$dir0" | sed -e "$$sed_butlast"`; \
+      else \
+        first2=`echo "$$dir2" | sed -e "$$sed_first"`; \
+        if test "$$first2" = "$$first"; then \
+          dir2=`echo "$$dir2" | sed -e "$$sed_rest"`; \
+        else \
+          dir2="../$$dir2"; \
+        fi; \
+        dir0="$$dir0"/"$$first"; \
+      fi; \
+    fi; \
+    dir1=`echo "$$dir1" | sed -e "$$sed_rest"`; \
+  done; \
+  reldir="$$dir2"
 DIST_ARCHIVES = $(distdir).tar.gz
 GZIP_ENV = --best
 DIST_TARGETS = dist-gzip
@@ -322,40 +311,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = foreign
-test_SOURCES = $(top_srcdir)/src/ChineseToPinyinResource.cc \
-			$(top_srcdir)/src/HanyuPinyinCaseType.cc \
-			$(top_srcdir)/src/HanyuPinyinOutputFormat.cc \
-			$(top_srcdir)/src/HanyuPinyinSpellType.cc \
-			$(top_srcdir)/src/HanyuPinyinToneType.cc \
-			$(top_srcdir)/src/HanyuPinyinVCharType.cc \
-			$(top_srcdir)/src/PinyinFormatter.cc \
-			$(top_srcdir)/src/PinyinHelper.cc \
-			$(top_srcdir)/src/util/string_util.cc \
-			$(top_srcdir)/demo/test.cc
-
 include_HEADERS = $(top_srcdir)/include/ChineseToPinyinResource.h \
-			$(top_srcdir)/include/HanyuPinyinCaseType.h \
-			$(top_srcdir)/include/HanyuPinyinOutputFormat.h \
-			$(top_srcdir)/include/HanyuPinyinSpellType.h \
-			$(top_srcdir)/include/HanyuPinyinToneType.h \
-			$(top_srcdir)/include/HanyuPinyinVCharType.h \
-			$(top_srcdir)/include/PinyinFormatter.h \
-			$(top_srcdir)/include/PinyinHelper.h \
-			$(top_srcdir)/include/util/string_util.h \
-			$(top_srcdir)/src/pinyindb/unicode_to_hanyu_pinyin.h
-
-test_CXXFLAGS = -O0 -fPIC -std=c++11 -fno-strict-aliasing -Wall -Wno-deprecated -Wno-sign-compare
-libpinyin4cpp_so_CXXFLAGS = -O0 -fPIC -std=c++11 -fno-strict-aliasing -Wall -Wno-deprecated -Wno-sign-compare
-test_LDFLAGS = -lboost_chrono \
-      -lboost_system \
-      -lboost_thread \
-      -lboost_locale
-
-test_LDADD = -L/usr/local/lib \
-      -L/usr/local/lib64/ \
-      -L/usr/lib64/
-
-noinst_HEADERS = $(top_srcdir)/include/ChineseToPinyinResource.h \
 			$(top_srcdir)/include/HanyuPinyinCaseType.h \
 			$(top_srcdir)/include/HanyuPinyinOutputFormat.h \
 			$(top_srcdir)/include/HanyuPinyinSpellType.h \
@@ -371,23 +327,11 @@ INCLUDES = -I$(top_srcdir)/include \
 		-I$(top_srcdir)/src \
 		-I$(top_srcdir)/src/pinyindb
 
-libpinyin4cpplibdir = $(libdir)
-libpinyin4cpp_so_SOURCES = $(top_srcdir)/src/ChineseToPinyinResource.cc \
-			$(top_srcdir)/src/HanyuPinyinCaseType.cc \
-			$(top_srcdir)/src/HanyuPinyinOutputFormat.cc \
-			$(top_srcdir)/src/HanyuPinyinSpellType.cc \
-			$(top_srcdir)/src/HanyuPinyinToneType.cc \
-			$(top_srcdir)/src/HanyuPinyinVCharType.cc \
-			$(top_srcdir)/src/PinyinFormatter.cc \
-			$(top_srcdir)/src/PinyinHelper.cc \
-			$(top_srcdir)/src/util/string_util.cc
-
-libpinyin4cpp_so_LDFLAGS = -shared -fPIC
+SUBDIRS = src demo
 all: config.h
-	$(MAKE) $(AM_MAKEFLAGS) all-am
+	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
 .SUFFIXES:
-.SUFFIXES: .cc .o .obj
 am--refresh: Makefile
 	@:
 $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
@@ -437,404 +381,6 @@ $(srcdir)/config.h.in:  $(am__configure_deps)
 
 distclean-hdr:
 	-rm -f config.h stamp-h1
-install-binPROGRAMS: $(bin_PROGRAMS)
-	@$(NORMAL_INSTALL)
-	@list='$(bin_PROGRAMS)'; test -n "$(bindir)" || list=; \
-	if test -n "$$list"; then \
-	  echo " $(MKDIR_P) '$(DESTDIR)$(bindir)'"; \
-	  $(MKDIR_P) "$(DESTDIR)$(bindir)" || exit 1; \
-	fi; \
-	for p in $$list; do echo "$$p $$p"; done | \
-	sed 's/$(EXEEXT)$$//' | \
-	while read p p1; do if test -f $$p \
-	  ; then echo "$$p"; echo "$$p"; else :; fi; \
-	done | \
-	sed -e 'p;s,.*/,,;n;h' \
-	    -e 's|.*|.|' \
-	    -e 'p;x;s,.*/,,;s/$(EXEEXT)$$//;$(transform);s/$$/$(EXEEXT)/' | \
-	sed 'N;N;N;s,\n, ,g' | \
-	$(AWK) 'BEGIN { files["."] = ""; dirs["."] = 1 } \
-	  { d=$$3; if (dirs[d] != 1) { print "d", d; dirs[d] = 1 } \
-	    if ($$2 == $$4) files[d] = files[d] " " $$1; \
-	    else { print "f", $$3 "/" $$4, $$1; } } \
-	  END { for (d in files) print "f", d, files[d] }' | \
-	while read type dir files; do \
-	    if test "$$dir" = .; then dir=; else dir=/$$dir; fi; \
-	    test -z "$$files" || { \
-	      echo " $(INSTALL_PROGRAM_ENV) $(INSTALL_PROGRAM) $$files '$(DESTDIR)$(bindir)$$dir'"; \
-	      $(INSTALL_PROGRAM_ENV) $(INSTALL_PROGRAM) $$files "$(DESTDIR)$(bindir)$$dir" || exit $$?; \
-	    } \
-	; done
-
-uninstall-binPROGRAMS:
-	@$(NORMAL_UNINSTALL)
-	@list='$(bin_PROGRAMS)'; test -n "$(bindir)" || list=; \
-	files=`for p in $$list; do echo "$$p"; done | \
-	  sed -e 'h;s,^.*/,,;s/$(EXEEXT)$$//;$(transform)' \
-	      -e 's/$$/$(EXEEXT)/' \
-	`; \
-	test -n "$$list" || exit 0; \
-	echo " ( cd '$(DESTDIR)$(bindir)' && rm -f" $$files ")"; \
-	cd "$(DESTDIR)$(bindir)" && rm -f $$files
-
-clean-binPROGRAMS:
-	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
-install-libpinyin4cpplibPROGRAMS: $(libpinyin4cpplib_PROGRAMS)
-	@$(NORMAL_INSTALL)
-	@list='$(libpinyin4cpplib_PROGRAMS)'; test -n "$(libpinyin4cpplibdir)" || list=; \
-	if test -n "$$list"; then \
-	  echo " $(MKDIR_P) '$(DESTDIR)$(libpinyin4cpplibdir)'"; \
-	  $(MKDIR_P) "$(DESTDIR)$(libpinyin4cpplibdir)" || exit 1; \
-	fi; \
-	for p in $$list; do echo "$$p $$p"; done | \
-	sed 's/$(EXEEXT)$$//' | \
-	while read p p1; do if test -f $$p \
-	  ; then echo "$$p"; echo "$$p"; else :; fi; \
-	done | \
-	sed -e 'p;s,.*/,,;n;h' \
-	    -e 's|.*|.|' \
-	    -e 'p;x;s,.*/,,;s/$(EXEEXT)$$//;$(transform);s/$$/$(EXEEXT)/' | \
-	sed 'N;N;N;s,\n, ,g' | \
-	$(AWK) 'BEGIN { files["."] = ""; dirs["."] = 1 } \
-	  { d=$$3; if (dirs[d] != 1) { print "d", d; dirs[d] = 1 } \
-	    if ($$2 == $$4) files[d] = files[d] " " $$1; \
-	    else { print "f", $$3 "/" $$4, $$1; } } \
-	  END { for (d in files) print "f", d, files[d] }' | \
-	while read type dir files; do \
-	    if test "$$dir" = .; then dir=; else dir=/$$dir; fi; \
-	    test -z "$$files" || { \
-	      echo " $(INSTALL_PROGRAM_ENV) $(INSTALL_PROGRAM) $$files '$(DESTDIR)$(libpinyin4cpplibdir)$$dir'"; \
-	      $(INSTALL_PROGRAM_ENV) $(INSTALL_PROGRAM) $$files "$(DESTDIR)$(libpinyin4cpplibdir)$$dir" || exit $$?; \
-	    } \
-	; done
-
-uninstall-libpinyin4cpplibPROGRAMS:
-	@$(NORMAL_UNINSTALL)
-	@list='$(libpinyin4cpplib_PROGRAMS)'; test -n "$(libpinyin4cpplibdir)" || list=; \
-	files=`for p in $$list; do echo "$$p"; done | \
-	  sed -e 'h;s,^.*/,,;s/$(EXEEXT)$$//;$(transform)' \
-	      -e 's/$$/$(EXEEXT)/' \
-	`; \
-	test -n "$$list" || exit 0; \
-	echo " ( cd '$(DESTDIR)$(libpinyin4cpplibdir)' && rm -f" $$files ")"; \
-	cd "$(DESTDIR)$(libpinyin4cpplibdir)" && rm -f $$files
-
-clean-libpinyin4cpplibPROGRAMS:
-	-test -z "$(libpinyin4cpplib_PROGRAMS)" || rm -f $(libpinyin4cpplib_PROGRAMS)
-
-libpinyin4cpp.so$(EXEEXT): $(libpinyin4cpp_so_OBJECTS) $(libpinyin4cpp_so_DEPENDENCIES) $(EXTRA_libpinyin4cpp_so_DEPENDENCIES) 
-	@rm -f libpinyin4cpp.so$(EXEEXT)
-	$(AM_V_CXXLD)$(libpinyin4cpp_so_LINK) $(libpinyin4cpp_so_OBJECTS) $(libpinyin4cpp_so_LDADD) $(LIBS)
-
-test$(EXEEXT): $(test_OBJECTS) $(test_DEPENDENCIES) $(EXTRA_test_DEPENDENCIES) 
-	@rm -f test$(EXEEXT)
-	$(AM_V_CXXLD)$(test_LINK) $(test_OBJECTS) $(test_LDADD) $(LIBS)
-
-mostlyclean-compile:
-	-rm -f *.$(OBJEXT)
-
-distclean-compile:
-	-rm -f *.tab.c
-
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpinyin4cpp_so-ChineseToPinyinResource.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpinyin4cpp_so-HanyuPinyinCaseType.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpinyin4cpp_so-HanyuPinyinOutputFormat.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpinyin4cpp_so-HanyuPinyinSpellType.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpinyin4cpp_so-HanyuPinyinToneType.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpinyin4cpp_so-HanyuPinyinVCharType.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpinyin4cpp_so-PinyinFormatter.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpinyin4cpp_so-PinyinHelper.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpinyin4cpp_so-string_util.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-ChineseToPinyinResource.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-HanyuPinyinCaseType.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-HanyuPinyinOutputFormat.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-HanyuPinyinSpellType.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-HanyuPinyinToneType.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-HanyuPinyinVCharType.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-PinyinFormatter.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-PinyinHelper.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-string_util.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-test.Po@am__quote@
-
-.cc.o:
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXXCOMPILE) -c -o $@ $<
-
-.cc.obj:
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
-
-libpinyin4cpp_so-ChineseToPinyinResource.o: $(top_srcdir)/src/ChineseToPinyinResource.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-ChineseToPinyinResource.o -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-ChineseToPinyinResource.Tpo -c -o libpinyin4cpp_so-ChineseToPinyinResource.o `test -f '$(top_srcdir)/src/ChineseToPinyinResource.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/ChineseToPinyinResource.cc
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libpinyin4cpp_so-ChineseToPinyinResource.Tpo $(DEPDIR)/libpinyin4cpp_so-ChineseToPinyinResource.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/ChineseToPinyinResource.cc' object='libpinyin4cpp_so-ChineseToPinyinResource.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-ChineseToPinyinResource.o `test -f '$(top_srcdir)/src/ChineseToPinyinResource.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/ChineseToPinyinResource.cc
-
-libpinyin4cpp_so-ChineseToPinyinResource.obj: $(top_srcdir)/src/ChineseToPinyinResource.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-ChineseToPinyinResource.obj -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-ChineseToPinyinResource.Tpo -c -o libpinyin4cpp_so-ChineseToPinyinResource.obj `if test -f '$(top_srcdir)/src/ChineseToPinyinResource.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/ChineseToPinyinResource.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/ChineseToPinyinResource.cc'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libpinyin4cpp_so-ChineseToPinyinResource.Tpo $(DEPDIR)/libpinyin4cpp_so-ChineseToPinyinResource.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/ChineseToPinyinResource.cc' object='libpinyin4cpp_so-ChineseToPinyinResource.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-ChineseToPinyinResource.obj `if test -f '$(top_srcdir)/src/ChineseToPinyinResource.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/ChineseToPinyinResource.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/ChineseToPinyinResource.cc'; fi`
-
-libpinyin4cpp_so-HanyuPinyinCaseType.o: $(top_srcdir)/src/HanyuPinyinCaseType.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-HanyuPinyinCaseType.o -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinCaseType.Tpo -c -o libpinyin4cpp_so-HanyuPinyinCaseType.o `test -f '$(top_srcdir)/src/HanyuPinyinCaseType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinCaseType.cc
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinCaseType.Tpo $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinCaseType.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/HanyuPinyinCaseType.cc' object='libpinyin4cpp_so-HanyuPinyinCaseType.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-HanyuPinyinCaseType.o `test -f '$(top_srcdir)/src/HanyuPinyinCaseType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinCaseType.cc
-
-libpinyin4cpp_so-HanyuPinyinCaseType.obj: $(top_srcdir)/src/HanyuPinyinCaseType.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-HanyuPinyinCaseType.obj -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinCaseType.Tpo -c -o libpinyin4cpp_so-HanyuPinyinCaseType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinCaseType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinCaseType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinCaseType.cc'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinCaseType.Tpo $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinCaseType.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/HanyuPinyinCaseType.cc' object='libpinyin4cpp_so-HanyuPinyinCaseType.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-HanyuPinyinCaseType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinCaseType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinCaseType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinCaseType.cc'; fi`
-
-libpinyin4cpp_so-HanyuPinyinOutputFormat.o: $(top_srcdir)/src/HanyuPinyinOutputFormat.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-HanyuPinyinOutputFormat.o -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinOutputFormat.Tpo -c -o libpinyin4cpp_so-HanyuPinyinOutputFormat.o `test -f '$(top_srcdir)/src/HanyuPinyinOutputFormat.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinOutputFormat.cc
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinOutputFormat.Tpo $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinOutputFormat.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/HanyuPinyinOutputFormat.cc' object='libpinyin4cpp_so-HanyuPinyinOutputFormat.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-HanyuPinyinOutputFormat.o `test -f '$(top_srcdir)/src/HanyuPinyinOutputFormat.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinOutputFormat.cc
-
-libpinyin4cpp_so-HanyuPinyinOutputFormat.obj: $(top_srcdir)/src/HanyuPinyinOutputFormat.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-HanyuPinyinOutputFormat.obj -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinOutputFormat.Tpo -c -o libpinyin4cpp_so-HanyuPinyinOutputFormat.obj `if test -f '$(top_srcdir)/src/HanyuPinyinOutputFormat.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinOutputFormat.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinOutputFormat.cc'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinOutputFormat.Tpo $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinOutputFormat.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/HanyuPinyinOutputFormat.cc' object='libpinyin4cpp_so-HanyuPinyinOutputFormat.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-HanyuPinyinOutputFormat.obj `if test -f '$(top_srcdir)/src/HanyuPinyinOutputFormat.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinOutputFormat.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinOutputFormat.cc'; fi`
-
-libpinyin4cpp_so-HanyuPinyinSpellType.o: $(top_srcdir)/src/HanyuPinyinSpellType.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-HanyuPinyinSpellType.o -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinSpellType.Tpo -c -o libpinyin4cpp_so-HanyuPinyinSpellType.o `test -f '$(top_srcdir)/src/HanyuPinyinSpellType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinSpellType.cc
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinSpellType.Tpo $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinSpellType.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/HanyuPinyinSpellType.cc' object='libpinyin4cpp_so-HanyuPinyinSpellType.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-HanyuPinyinSpellType.o `test -f '$(top_srcdir)/src/HanyuPinyinSpellType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinSpellType.cc
-
-libpinyin4cpp_so-HanyuPinyinSpellType.obj: $(top_srcdir)/src/HanyuPinyinSpellType.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-HanyuPinyinSpellType.obj -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinSpellType.Tpo -c -o libpinyin4cpp_so-HanyuPinyinSpellType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinSpellType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinSpellType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinSpellType.cc'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinSpellType.Tpo $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinSpellType.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/HanyuPinyinSpellType.cc' object='libpinyin4cpp_so-HanyuPinyinSpellType.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-HanyuPinyinSpellType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinSpellType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinSpellType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinSpellType.cc'; fi`
-
-libpinyin4cpp_so-HanyuPinyinToneType.o: $(top_srcdir)/src/HanyuPinyinToneType.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-HanyuPinyinToneType.o -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinToneType.Tpo -c -o libpinyin4cpp_so-HanyuPinyinToneType.o `test -f '$(top_srcdir)/src/HanyuPinyinToneType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinToneType.cc
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinToneType.Tpo $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinToneType.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/HanyuPinyinToneType.cc' object='libpinyin4cpp_so-HanyuPinyinToneType.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-HanyuPinyinToneType.o `test -f '$(top_srcdir)/src/HanyuPinyinToneType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinToneType.cc
-
-libpinyin4cpp_so-HanyuPinyinToneType.obj: $(top_srcdir)/src/HanyuPinyinToneType.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-HanyuPinyinToneType.obj -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinToneType.Tpo -c -o libpinyin4cpp_so-HanyuPinyinToneType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinToneType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinToneType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinToneType.cc'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinToneType.Tpo $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinToneType.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/HanyuPinyinToneType.cc' object='libpinyin4cpp_so-HanyuPinyinToneType.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-HanyuPinyinToneType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinToneType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinToneType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinToneType.cc'; fi`
-
-libpinyin4cpp_so-HanyuPinyinVCharType.o: $(top_srcdir)/src/HanyuPinyinVCharType.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-HanyuPinyinVCharType.o -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinVCharType.Tpo -c -o libpinyin4cpp_so-HanyuPinyinVCharType.o `test -f '$(top_srcdir)/src/HanyuPinyinVCharType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinVCharType.cc
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinVCharType.Tpo $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinVCharType.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/HanyuPinyinVCharType.cc' object='libpinyin4cpp_so-HanyuPinyinVCharType.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-HanyuPinyinVCharType.o `test -f '$(top_srcdir)/src/HanyuPinyinVCharType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinVCharType.cc
-
-libpinyin4cpp_so-HanyuPinyinVCharType.obj: $(top_srcdir)/src/HanyuPinyinVCharType.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-HanyuPinyinVCharType.obj -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinVCharType.Tpo -c -o libpinyin4cpp_so-HanyuPinyinVCharType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinVCharType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinVCharType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinVCharType.cc'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinVCharType.Tpo $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinVCharType.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/HanyuPinyinVCharType.cc' object='libpinyin4cpp_so-HanyuPinyinVCharType.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-HanyuPinyinVCharType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinVCharType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinVCharType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinVCharType.cc'; fi`
-
-libpinyin4cpp_so-PinyinFormatter.o: $(top_srcdir)/src/PinyinFormatter.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-PinyinFormatter.o -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-PinyinFormatter.Tpo -c -o libpinyin4cpp_so-PinyinFormatter.o `test -f '$(top_srcdir)/src/PinyinFormatter.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/PinyinFormatter.cc
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libpinyin4cpp_so-PinyinFormatter.Tpo $(DEPDIR)/libpinyin4cpp_so-PinyinFormatter.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/PinyinFormatter.cc' object='libpinyin4cpp_so-PinyinFormatter.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-PinyinFormatter.o `test -f '$(top_srcdir)/src/PinyinFormatter.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/PinyinFormatter.cc
-
-libpinyin4cpp_so-PinyinFormatter.obj: $(top_srcdir)/src/PinyinFormatter.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-PinyinFormatter.obj -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-PinyinFormatter.Tpo -c -o libpinyin4cpp_so-PinyinFormatter.obj `if test -f '$(top_srcdir)/src/PinyinFormatter.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/PinyinFormatter.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/PinyinFormatter.cc'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libpinyin4cpp_so-PinyinFormatter.Tpo $(DEPDIR)/libpinyin4cpp_so-PinyinFormatter.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/PinyinFormatter.cc' object='libpinyin4cpp_so-PinyinFormatter.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-PinyinFormatter.obj `if test -f '$(top_srcdir)/src/PinyinFormatter.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/PinyinFormatter.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/PinyinFormatter.cc'; fi`
-
-libpinyin4cpp_so-PinyinHelper.o: $(top_srcdir)/src/PinyinHelper.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-PinyinHelper.o -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-PinyinHelper.Tpo -c -o libpinyin4cpp_so-PinyinHelper.o `test -f '$(top_srcdir)/src/PinyinHelper.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/PinyinHelper.cc
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libpinyin4cpp_so-PinyinHelper.Tpo $(DEPDIR)/libpinyin4cpp_so-PinyinHelper.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/PinyinHelper.cc' object='libpinyin4cpp_so-PinyinHelper.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-PinyinHelper.o `test -f '$(top_srcdir)/src/PinyinHelper.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/PinyinHelper.cc
-
-libpinyin4cpp_so-PinyinHelper.obj: $(top_srcdir)/src/PinyinHelper.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-PinyinHelper.obj -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-PinyinHelper.Tpo -c -o libpinyin4cpp_so-PinyinHelper.obj `if test -f '$(top_srcdir)/src/PinyinHelper.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/PinyinHelper.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/PinyinHelper.cc'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libpinyin4cpp_so-PinyinHelper.Tpo $(DEPDIR)/libpinyin4cpp_so-PinyinHelper.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/PinyinHelper.cc' object='libpinyin4cpp_so-PinyinHelper.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-PinyinHelper.obj `if test -f '$(top_srcdir)/src/PinyinHelper.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/PinyinHelper.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/PinyinHelper.cc'; fi`
-
-libpinyin4cpp_so-string_util.o: $(top_srcdir)/src/util/string_util.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-string_util.o -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-string_util.Tpo -c -o libpinyin4cpp_so-string_util.o `test -f '$(top_srcdir)/src/util/string_util.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/util/string_util.cc
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libpinyin4cpp_so-string_util.Tpo $(DEPDIR)/libpinyin4cpp_so-string_util.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/util/string_util.cc' object='libpinyin4cpp_so-string_util.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-string_util.o `test -f '$(top_srcdir)/src/util/string_util.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/util/string_util.cc
-
-libpinyin4cpp_so-string_util.obj: $(top_srcdir)/src/util/string_util.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-string_util.obj -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-string_util.Tpo -c -o libpinyin4cpp_so-string_util.obj `if test -f '$(top_srcdir)/src/util/string_util.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/util/string_util.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/util/string_util.cc'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libpinyin4cpp_so-string_util.Tpo $(DEPDIR)/libpinyin4cpp_so-string_util.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/util/string_util.cc' object='libpinyin4cpp_so-string_util.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-string_util.obj `if test -f '$(top_srcdir)/src/util/string_util.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/util/string_util.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/util/string_util.cc'; fi`
-
-test-ChineseToPinyinResource.o: $(top_srcdir)/src/ChineseToPinyinResource.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -MT test-ChineseToPinyinResource.o -MD -MP -MF $(DEPDIR)/test-ChineseToPinyinResource.Tpo -c -o test-ChineseToPinyinResource.o `test -f '$(top_srcdir)/src/ChineseToPinyinResource.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/ChineseToPinyinResource.cc
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test-ChineseToPinyinResource.Tpo $(DEPDIR)/test-ChineseToPinyinResource.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/ChineseToPinyinResource.cc' object='test-ChineseToPinyinResource.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -c -o test-ChineseToPinyinResource.o `test -f '$(top_srcdir)/src/ChineseToPinyinResource.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/ChineseToPinyinResource.cc
-
-test-ChineseToPinyinResource.obj: $(top_srcdir)/src/ChineseToPinyinResource.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -MT test-ChineseToPinyinResource.obj -MD -MP -MF $(DEPDIR)/test-ChineseToPinyinResource.Tpo -c -o test-ChineseToPinyinResource.obj `if test -f '$(top_srcdir)/src/ChineseToPinyinResource.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/ChineseToPinyinResource.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/ChineseToPinyinResource.cc'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test-ChineseToPinyinResource.Tpo $(DEPDIR)/test-ChineseToPinyinResource.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/ChineseToPinyinResource.cc' object='test-ChineseToPinyinResource.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -c -o test-ChineseToPinyinResource.obj `if test -f '$(top_srcdir)/src/ChineseToPinyinResource.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/ChineseToPinyinResource.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/ChineseToPinyinResource.cc'; fi`
-
-test-HanyuPinyinCaseType.o: $(top_srcdir)/src/HanyuPinyinCaseType.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -MT test-HanyuPinyinCaseType.o -MD -MP -MF $(DEPDIR)/test-HanyuPinyinCaseType.Tpo -c -o test-HanyuPinyinCaseType.o `test -f '$(top_srcdir)/src/HanyuPinyinCaseType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinCaseType.cc
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test-HanyuPinyinCaseType.Tpo $(DEPDIR)/test-HanyuPinyinCaseType.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/HanyuPinyinCaseType.cc' object='test-HanyuPinyinCaseType.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -c -o test-HanyuPinyinCaseType.o `test -f '$(top_srcdir)/src/HanyuPinyinCaseType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinCaseType.cc
-
-test-HanyuPinyinCaseType.obj: $(top_srcdir)/src/HanyuPinyinCaseType.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -MT test-HanyuPinyinCaseType.obj -MD -MP -MF $(DEPDIR)/test-HanyuPinyinCaseType.Tpo -c -o test-HanyuPinyinCaseType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinCaseType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinCaseType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinCaseType.cc'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test-HanyuPinyinCaseType.Tpo $(DEPDIR)/test-HanyuPinyinCaseType.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/HanyuPinyinCaseType.cc' object='test-HanyuPinyinCaseType.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -c -o test-HanyuPinyinCaseType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinCaseType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinCaseType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinCaseType.cc'; fi`
-
-test-HanyuPinyinOutputFormat.o: $(top_srcdir)/src/HanyuPinyinOutputFormat.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -MT test-HanyuPinyinOutputFormat.o -MD -MP -MF $(DEPDIR)/test-HanyuPinyinOutputFormat.Tpo -c -o test-HanyuPinyinOutputFormat.o `test -f '$(top_srcdir)/src/HanyuPinyinOutputFormat.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinOutputFormat.cc
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test-HanyuPinyinOutputFormat.Tpo $(DEPDIR)/test-HanyuPinyinOutputFormat.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/HanyuPinyinOutputFormat.cc' object='test-HanyuPinyinOutputFormat.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -c -o test-HanyuPinyinOutputFormat.o `test -f '$(top_srcdir)/src/HanyuPinyinOutputFormat.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinOutputFormat.cc
-
-test-HanyuPinyinOutputFormat.obj: $(top_srcdir)/src/HanyuPinyinOutputFormat.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -MT test-HanyuPinyinOutputFormat.obj -MD -MP -MF $(DEPDIR)/test-HanyuPinyinOutputFormat.Tpo -c -o test-HanyuPinyinOutputFormat.obj `if test -f '$(top_srcdir)/src/HanyuPinyinOutputFormat.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinOutputFormat.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinOutputFormat.cc'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test-HanyuPinyinOutputFormat.Tpo $(DEPDIR)/test-HanyuPinyinOutputFormat.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/HanyuPinyinOutputFormat.cc' object='test-HanyuPinyinOutputFormat.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -c -o test-HanyuPinyinOutputFormat.obj `if test -f '$(top_srcdir)/src/HanyuPinyinOutputFormat.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinOutputFormat.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinOutputFormat.cc'; fi`
-
-test-HanyuPinyinSpellType.o: $(top_srcdir)/src/HanyuPinyinSpellType.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -MT test-HanyuPinyinSpellType.o -MD -MP -MF $(DEPDIR)/test-HanyuPinyinSpellType.Tpo -c -o test-HanyuPinyinSpellType.o `test -f '$(top_srcdir)/src/HanyuPinyinSpellType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinSpellType.cc
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test-HanyuPinyinSpellType.Tpo $(DEPDIR)/test-HanyuPinyinSpellType.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/HanyuPinyinSpellType.cc' object='test-HanyuPinyinSpellType.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -c -o test-HanyuPinyinSpellType.o `test -f '$(top_srcdir)/src/HanyuPinyinSpellType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinSpellType.cc
-
-test-HanyuPinyinSpellType.obj: $(top_srcdir)/src/HanyuPinyinSpellType.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -MT test-HanyuPinyinSpellType.obj -MD -MP -MF $(DEPDIR)/test-HanyuPinyinSpellType.Tpo -c -o test-HanyuPinyinSpellType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinSpellType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinSpellType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinSpellType.cc'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test-HanyuPinyinSpellType.Tpo $(DEPDIR)/test-HanyuPinyinSpellType.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/HanyuPinyinSpellType.cc' object='test-HanyuPinyinSpellType.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -c -o test-HanyuPinyinSpellType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinSpellType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinSpellType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinSpellType.cc'; fi`
-
-test-HanyuPinyinToneType.o: $(top_srcdir)/src/HanyuPinyinToneType.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -MT test-HanyuPinyinToneType.o -MD -MP -MF $(DEPDIR)/test-HanyuPinyinToneType.Tpo -c -o test-HanyuPinyinToneType.o `test -f '$(top_srcdir)/src/HanyuPinyinToneType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinToneType.cc
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test-HanyuPinyinToneType.Tpo $(DEPDIR)/test-HanyuPinyinToneType.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/HanyuPinyinToneType.cc' object='test-HanyuPinyinToneType.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -c -o test-HanyuPinyinToneType.o `test -f '$(top_srcdir)/src/HanyuPinyinToneType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinToneType.cc
-
-test-HanyuPinyinToneType.obj: $(top_srcdir)/src/HanyuPinyinToneType.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -MT test-HanyuPinyinToneType.obj -MD -MP -MF $(DEPDIR)/test-HanyuPinyinToneType.Tpo -c -o test-HanyuPinyinToneType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinToneType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinToneType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinToneType.cc'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test-HanyuPinyinToneType.Tpo $(DEPDIR)/test-HanyuPinyinToneType.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/HanyuPinyinToneType.cc' object='test-HanyuPinyinToneType.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -c -o test-HanyuPinyinToneType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinToneType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinToneType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinToneType.cc'; fi`
-
-test-HanyuPinyinVCharType.o: $(top_srcdir)/src/HanyuPinyinVCharType.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -MT test-HanyuPinyinVCharType.o -MD -MP -MF $(DEPDIR)/test-HanyuPinyinVCharType.Tpo -c -o test-HanyuPinyinVCharType.o `test -f '$(top_srcdir)/src/HanyuPinyinVCharType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinVCharType.cc
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test-HanyuPinyinVCharType.Tpo $(DEPDIR)/test-HanyuPinyinVCharType.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/HanyuPinyinVCharType.cc' object='test-HanyuPinyinVCharType.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -c -o test-HanyuPinyinVCharType.o `test -f '$(top_srcdir)/src/HanyuPinyinVCharType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinVCharType.cc
-
-test-HanyuPinyinVCharType.obj: $(top_srcdir)/src/HanyuPinyinVCharType.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -MT test-HanyuPinyinVCharType.obj -MD -MP -MF $(DEPDIR)/test-HanyuPinyinVCharType.Tpo -c -o test-HanyuPinyinVCharType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinVCharType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinVCharType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinVCharType.cc'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test-HanyuPinyinVCharType.Tpo $(DEPDIR)/test-HanyuPinyinVCharType.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/HanyuPinyinVCharType.cc' object='test-HanyuPinyinVCharType.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -c -o test-HanyuPinyinVCharType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinVCharType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinVCharType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinVCharType.cc'; fi`
-
-test-PinyinFormatter.o: $(top_srcdir)/src/PinyinFormatter.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -MT test-PinyinFormatter.o -MD -MP -MF $(DEPDIR)/test-PinyinFormatter.Tpo -c -o test-PinyinFormatter.o `test -f '$(top_srcdir)/src/PinyinFormatter.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/PinyinFormatter.cc
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test-PinyinFormatter.Tpo $(DEPDIR)/test-PinyinFormatter.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/PinyinFormatter.cc' object='test-PinyinFormatter.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -c -o test-PinyinFormatter.o `test -f '$(top_srcdir)/src/PinyinFormatter.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/PinyinFormatter.cc
-
-test-PinyinFormatter.obj: $(top_srcdir)/src/PinyinFormatter.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -MT test-PinyinFormatter.obj -MD -MP -MF $(DEPDIR)/test-PinyinFormatter.Tpo -c -o test-PinyinFormatter.obj `if test -f '$(top_srcdir)/src/PinyinFormatter.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/PinyinFormatter.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/PinyinFormatter.cc'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test-PinyinFormatter.Tpo $(DEPDIR)/test-PinyinFormatter.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/PinyinFormatter.cc' object='test-PinyinFormatter.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -c -o test-PinyinFormatter.obj `if test -f '$(top_srcdir)/src/PinyinFormatter.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/PinyinFormatter.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/PinyinFormatter.cc'; fi`
-
-test-PinyinHelper.o: $(top_srcdir)/src/PinyinHelper.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -MT test-PinyinHelper.o -MD -MP -MF $(DEPDIR)/test-PinyinHelper.Tpo -c -o test-PinyinHelper.o `test -f '$(top_srcdir)/src/PinyinHelper.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/PinyinHelper.cc
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test-PinyinHelper.Tpo $(DEPDIR)/test-PinyinHelper.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/PinyinHelper.cc' object='test-PinyinHelper.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -c -o test-PinyinHelper.o `test -f '$(top_srcdir)/src/PinyinHelper.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/PinyinHelper.cc
-
-test-PinyinHelper.obj: $(top_srcdir)/src/PinyinHelper.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -MT test-PinyinHelper.obj -MD -MP -MF $(DEPDIR)/test-PinyinHelper.Tpo -c -o test-PinyinHelper.obj `if test -f '$(top_srcdir)/src/PinyinHelper.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/PinyinHelper.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/PinyinHelper.cc'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test-PinyinHelper.Tpo $(DEPDIR)/test-PinyinHelper.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/PinyinHelper.cc' object='test-PinyinHelper.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -c -o test-PinyinHelper.obj `if test -f '$(top_srcdir)/src/PinyinHelper.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/PinyinHelper.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/PinyinHelper.cc'; fi`
-
-test-string_util.o: $(top_srcdir)/src/util/string_util.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -MT test-string_util.o -MD -MP -MF $(DEPDIR)/test-string_util.Tpo -c -o test-string_util.o `test -f '$(top_srcdir)/src/util/string_util.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/util/string_util.cc
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test-string_util.Tpo $(DEPDIR)/test-string_util.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/util/string_util.cc' object='test-string_util.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -c -o test-string_util.o `test -f '$(top_srcdir)/src/util/string_util.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/util/string_util.cc
-
-test-string_util.obj: $(top_srcdir)/src/util/string_util.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -MT test-string_util.obj -MD -MP -MF $(DEPDIR)/test-string_util.Tpo -c -o test-string_util.obj `if test -f '$(top_srcdir)/src/util/string_util.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/util/string_util.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/util/string_util.cc'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test-string_util.Tpo $(DEPDIR)/test-string_util.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/src/util/string_util.cc' object='test-string_util.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -c -o test-string_util.obj `if test -f '$(top_srcdir)/src/util/string_util.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/util/string_util.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/util/string_util.cc'; fi`
-
-test-test.o: $(top_srcdir)/demo/test.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -MT test-test.o -MD -MP -MF $(DEPDIR)/test-test.Tpo -c -o test-test.o `test -f '$(top_srcdir)/demo/test.cc' || echo '$(srcdir)/'`$(top_srcdir)/demo/test.cc
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test-test.Tpo $(DEPDIR)/test-test.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/demo/test.cc' object='test-test.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -c -o test-test.o `test -f '$(top_srcdir)/demo/test.cc' || echo '$(srcdir)/'`$(top_srcdir)/demo/test.cc
-
-test-test.obj: $(top_srcdir)/demo/test.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -MT test-test.obj -MD -MP -MF $(DEPDIR)/test-test.Tpo -c -o test-test.obj `if test -f '$(top_srcdir)/demo/test.cc'; then $(CYGPATH_W) '$(top_srcdir)/demo/test.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/demo/test.cc'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test-test.Tpo $(DEPDIR)/test-test.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$(top_srcdir)/demo/test.cc' object='test-test.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -c -o test-test.obj `if test -f '$(top_srcdir)/demo/test.cc'; then $(CYGPATH_W) '$(top_srcdir)/demo/test.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/demo/test.cc'; fi`
 install-includeHEADERS: $(include_HEADERS)
 	@$(NORMAL_INSTALL)
 	@list='$(include_HEADERS)'; test -n "$(includedir)" || list=; \
@@ -857,14 +403,61 @@ uninstall-includeHEADERS:
 	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
 	dir='$(DESTDIR)$(includedir)'; $(am__uninstall_files_from_dir)
 
+# This directory's subdirectories are mostly independent; you can cd
+# into them and run 'make' without going through this Makefile.
+# To change the values of 'make' variables: instead of editing Makefiles,
+# (1) if the variable is set in 'config.status', edit 'config.status'
+#     (which will cause the Makefiles to be regenerated when you run 'make');
+# (2) otherwise, pass the desired values on the 'make' command line.
+$(am__recursive_targets):
+	@fail=; \
+	if $(am__make_keepgoing); then \
+	  failcom='fail=yes'; \
+	else \
+	  failcom='exit 1'; \
+	fi; \
+	dot_seen=no; \
+	target=`echo $@ | sed s/-recursive//`; \
+	case "$@" in \
+	  distclean-* | maintainer-clean-*) list='$(DIST_SUBDIRS)' ;; \
+	  *) list='$(SUBDIRS)' ;; \
+	esac; \
+	for subdir in $$list; do \
+	  echo "Making $$target in $$subdir"; \
+	  if test "$$subdir" = "."; then \
+	    dot_seen=yes; \
+	    local_target="$$target-am"; \
+	  else \
+	    local_target="$$target"; \
+	  fi; \
+	  ($(am__cd) $$subdir && $(MAKE) $(AM_MAKEFLAGS) $$local_target) \
+	  || eval $$failcom; \
+	done; \
+	if test "$$dot_seen" = "no"; then \
+	  $(MAKE) $(AM_MAKEFLAGS) "$$target-am" || exit 1; \
+	fi; test -z "$$fail"
+
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique
-tags: tags-am
+tags: tags-recursive
 TAGS: tags
 
 tags-am: $(TAGS_DEPENDENCIES) $(am__tagged_files)
 	set x; \
 	here=`pwd`; \
+	if ($(ETAGS) --etags-include --version) >/dev/null 2>&1; then \
+	  include_option=--etags-include; \
+	  empty_fix=.; \
+	else \
+	  include_option=--include; \
+	  empty_fix=; \
+	fi; \
+	list='$(SUBDIRS)'; for subdir in $$list; do \
+	  if test "$$subdir" = .; then :; else \
+	    test ! -f $$subdir/TAGS || \
+	      set "$$@" "$$include_option=$$here/$$subdir/TAGS"; \
+	  fi; \
+	done; \
 	$(am__define_uniq_tagged_files); \
 	shift; \
 	if test -z "$(ETAGS_ARGS)$$*$$unique"; then :; else \
@@ -877,7 +470,7 @@ tags-am: $(TAGS_DEPENDENCIES) $(am__tagged_files)
 	      $$unique; \
 	  fi; \
 	fi
-ctags: ctags-am
+ctags: ctags-recursive
 
 CTAGS: ctags
 ctags-am: $(TAGS_DEPENDENCIES) $(am__tagged_files)
@@ -896,7 +489,7 @@ cscope: cscope.files
 clean-cscope:
 	-rm -f cscope.files
 cscope.files: clean-cscope cscopelist
-cscopelist: cscopelist-am
+cscopelist: cscopelist-recursive
 
 cscopelist-am: $(am__tagged_files)
 	list='$(am__tagged_files)'; \
@@ -946,6 +539,31 @@ distdir: $(DISTFILES)
 	    test -f "$(distdir)/$$file" \
 	    || cp -p $$d/$$file "$(distdir)/$$file" \
 	    || exit 1; \
+	  fi; \
+	done
+	@list='$(DIST_SUBDIRS)'; for subdir in $$list; do \
+	  if test "$$subdir" = .; then :; else \
+	    $(am__make_dryrun) \
+	      || test -d "$(distdir)/$$subdir" \
+	      || $(MKDIR_P) "$(distdir)/$$subdir" \
+	      || exit 1; \
+	    dir1=$$subdir; dir2="$(distdir)/$$subdir"; \
+	    $(am__relativize); \
+	    new_distdir=$$reldir; \
+	    dir1=$$subdir; dir2="$(top_distdir)"; \
+	    $(am__relativize); \
+	    new_top_distdir=$$reldir; \
+	    echo " (cd $$subdir && $(MAKE) $(AM_MAKEFLAGS) top_distdir="$$new_top_distdir" distdir="$$new_distdir" \\"; \
+	    echo "     am__remove_distdir=: am__skip_length_check=: am__skip_mode_fix=: distdir)"; \
+	    ($(am__cd) $$subdir && \
+	      $(MAKE) $(AM_MAKEFLAGS) \
+	        top_distdir="$$new_top_distdir" \
+	        distdir="$$new_distdir" \
+		am__remove_distdir=: \
+		am__skip_length_check=: \
+		am__skip_mode_fix=: \
+	        distdir) \
+	      || exit 1; \
 	  fi; \
 	done
 	-test -n "$(am__skip_mode_fix)" \
@@ -1073,21 +691,22 @@ distcleancheck: distclean
 	       $(distcleancheck_listfiles) ; \
 	       exit 1; } >&2
 check-am: all-am
-check: check-am
-all-am: Makefile $(PROGRAMS) $(HEADERS) config.h
-installdirs:
-	for dir in "$(DESTDIR)$(bindir)" "$(DESTDIR)$(libpinyin4cpplibdir)" "$(DESTDIR)$(includedir)"; do \
+check: check-recursive
+all-am: Makefile $(HEADERS) config.h
+installdirs: installdirs-recursive
+installdirs-am:
+	for dir in "$(DESTDIR)$(includedir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
-install: install-am
-install-exec: install-exec-am
-install-data: install-data-am
-uninstall: uninstall-am
+install: install-recursive
+install-exec: install-exec-recursive
+install-data: install-data-recursive
+uninstall: uninstall-recursive
 
 install-am: all-am
 	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
 
-installcheck: installcheck-am
+installcheck: installcheck-recursive
 install-strip:
 	if test -z '$(STRIP)'; then \
 	  $(MAKE) $(AM_MAKEFLAGS) INSTALL_PROGRAM="$(INSTALL_STRIP_PROGRAM)" \
@@ -1109,101 +728,93 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
-clean: clean-am
+clean: clean-recursive
 
-clean-am: clean-binPROGRAMS clean-generic \
-	clean-libpinyin4cpplibPROGRAMS mostlyclean-am
+clean-am: clean-generic mostlyclean-am
 
-distclean: distclean-am
+distclean: distclean-recursive
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
-	-rm -rf ./$(DEPDIR)
 	-rm -f Makefile
-distclean-am: clean-am distclean-compile distclean-generic \
-	distclean-hdr distclean-tags
+distclean-am: clean-am distclean-generic distclean-hdr distclean-tags
 
-dvi: dvi-am
+dvi: dvi-recursive
 
 dvi-am:
 
-html: html-am
+html: html-recursive
 
 html-am:
 
-info: info-am
+info: info-recursive
 
 info-am:
 
-install-data-am: install-includeHEADERS \
-	install-libpinyin4cpplibPROGRAMS
+install-data-am: install-includeHEADERS
 
-install-dvi: install-dvi-am
+install-dvi: install-dvi-recursive
 
 install-dvi-am:
 
-install-exec-am: install-binPROGRAMS
+install-exec-am:
 
-install-html: install-html-am
+install-html: install-html-recursive
 
 install-html-am:
 
-install-info: install-info-am
+install-info: install-info-recursive
 
 install-info-am:
 
 install-man:
 
-install-pdf: install-pdf-am
+install-pdf: install-pdf-recursive
 
 install-pdf-am:
 
-install-ps: install-ps-am
+install-ps: install-ps-recursive
 
 install-ps-am:
 
 installcheck-am:
 
-maintainer-clean: maintainer-clean-am
+maintainer-clean: maintainer-clean-recursive
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
-	-rm -rf ./$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
-mostlyclean: mostlyclean-am
+mostlyclean: mostlyclean-recursive
 
-mostlyclean-am: mostlyclean-compile mostlyclean-generic
+mostlyclean-am: mostlyclean-generic
 
-pdf: pdf-am
+pdf: pdf-recursive
 
 pdf-am:
 
-ps: ps-am
+ps: ps-recursive
 
 ps-am:
 
-uninstall-am: uninstall-binPROGRAMS uninstall-includeHEADERS \
-	uninstall-libpinyin4cpplibPROGRAMS
+uninstall-am: uninstall-includeHEADERS
 
-.MAKE: all install-am install-strip
+.MAKE: $(am__recursive_targets) all install-am install-strip
 
-.PHONY: CTAGS GTAGS TAGS all all-am am--refresh check check-am clean \
-	clean-binPROGRAMS clean-cscope clean-generic \
-	clean-libpinyin4cpplibPROGRAMS cscope cscopelist-am ctags \
-	ctags-am dist dist-all dist-bzip2 dist-gzip dist-lzip \
-	dist-shar dist-tarZ dist-xz dist-zip distcheck distclean \
-	distclean-compile distclean-generic distclean-hdr \
+.PHONY: $(am__recursive_targets) CTAGS GTAGS TAGS all all-am \
+	am--refresh check check-am clean clean-cscope clean-generic \
+	cscope cscopelist-am ctags ctags-am dist dist-all dist-bzip2 \
+	dist-gzip dist-lzip dist-shar dist-tarZ dist-xz dist-zip \
+	distcheck distclean distclean-generic distclean-hdr \
 	distclean-tags distcleancheck distdir distuninstallcheck dvi \
 	dvi-am html html-am info info-am install install-am \
-	install-binPROGRAMS install-data install-data-am install-dvi \
-	install-dvi-am install-exec install-exec-am install-html \
-	install-html-am install-includeHEADERS install-info \
-	install-info-am install-libpinyin4cpplibPROGRAMS install-man \
-	install-pdf install-pdf-am install-ps install-ps-am \
-	install-strip installcheck installcheck-am installdirs \
-	maintainer-clean maintainer-clean-generic mostlyclean \
-	mostlyclean-compile mostlyclean-generic pdf pdf-am ps ps-am \
-	tags tags-am uninstall uninstall-am uninstall-binPROGRAMS \
-	uninstall-includeHEADERS uninstall-libpinyin4cpplibPROGRAMS
+	install-data install-data-am install-dvi install-dvi-am \
+	install-exec install-exec-am install-html install-html-am \
+	install-includeHEADERS install-info install-info-am \
+	install-man install-pdf install-pdf-am install-ps \
+	install-ps-am install-strip installcheck installcheck-am \
+	installdirs installdirs-am maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-generic pdf \
+	pdf-am ps ps-am tags tags-am uninstall uninstall-am \
+	uninstall-includeHEADERS
 
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.

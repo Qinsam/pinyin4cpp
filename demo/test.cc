@@ -1,7 +1,5 @@
 #include<iostream>
-#include "ChineseToPinyinResource.h"
 #include "PinyinHelper.h"
-#include "HanyuPinyinOutputFormat.h"
 
 using namespace std;
 

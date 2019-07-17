@@ -15,6 +15,9 @@
 /* Define to 1 if you have the `boost_thread' library (-lboost_thread). */
 #undef HAVE_LIBBOOST_THREAD
 
+/* Define to 1 if you have the `pinyin4cpp' library (-lpinyin4cpp). */
+#undef HAVE_LIBPINYIN4CPP
+
 /* Define to 1 if you have the <memory.h> header file. */
 #undef HAVE_MEMORY_H
 

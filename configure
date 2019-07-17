@@ -2658,6 +2658,7 @@ ac_config_headers="$ac_config_headers config.h"
 
 
 CXXFLAGS=${CXXFLAGS--g}
+
 # Checks for programs.
 ac_ext=cpp
 ac_cpp='$CXXCPP $CPPFLAGS'
@@ -4187,6 +4188,46 @@ _ACEOF
 
 fi
 
+# FIXME: Replace `main' with a function in `-lpinyin4cpp':
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for main in -lpinyin4cpp" >&5
+$as_echo_n "checking for main in -lpinyin4cpp... " >&6; }
+if ${ac_cv_lib_pinyin4cpp_main+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lpinyin4cpp  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+
+int
+main ()
+{
+return main ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_pinyin4cpp_main=yes
+else
+  ac_cv_lib_pinyin4cpp_main=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_pinyin4cpp_main" >&5
+$as_echo "$ac_cv_lib_pinyin4cpp_main" >&6; }
+if test "x$ac_cv_lib_pinyin4cpp_main" = xyes; then :
+  cat >>confdefs.h <<_ACEOF
+#define HAVE_LIBPINYIN4CPP 1
+_ACEOF
+
+  LIBS="-lpinyin4cpp $LIBS"
+
+fi
+
 
 # Checks for header files.
 
@@ -4689,7 +4730,7 @@ fi
 
 # Checks for library functions.
 
-ac_config_files="$ac_config_files Makefile"
+ac_config_files="$ac_config_files Makefile demo/Makefile src/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -5423,6 +5464,8 @@ do
     "config.h") CONFIG_HEADERS="$CONFIG_HEADERS config.h" ;;
     "depfiles") CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
+    "demo/Makefile") CONFIG_FILES="$CONFIG_FILES demo/Makefile" ;;
+    "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac

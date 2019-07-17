@@ -8,6 +8,7 @@ AC_CONFIG_SRCDIR([config.h.in])
 AC_CONFIG_HEADERS([config.h])
 
 CXXFLAGS=${CXXFLAGS--g}
+
 # Checks for programs.
 AC_PROG_CXX
 AC_PROG_CC
@@ -21,6 +22,8 @@ AC_CHECK_LIB([boost_locale], [main])
 AC_CHECK_LIB([boost_system], [main])
 # FIXME: Replace `main' with a function in `-lboost_thread':
 AC_CHECK_LIB([boost_thread], [main])
+# FIXME: Replace `main' with a function in `-lpinyin4cpp':
+AC_CHECK_LIB([pinyin4cpp], [main])
 
 # Checks for header files.
 
@@ -30,5 +33,7 @@ AC_TYPE_SIZE_T
 
 # Checks for library functions.
 
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile
+                 demo/Makefile
+                 src/Makefile])
 AC_OUTPUT
