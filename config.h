@@ -5,22 +5,19 @@
 #define HAVE_INTTYPES_H 1
 
 /* Define to 1 if you have the `boost_chrono' library (-lboost_chrono). */
-/* #undef HAVE_LIBBOOST_CHRONO */
+#define HAVE_LIBBOOST_CHRONO 1
 
 /* Define to 1 if you have the `boost_locale' library (-lboost_locale). */
-/* #undef HAVE_LIBBOOST_LOCALE */
+#define HAVE_LIBBOOST_LOCALE 1
 
 /* Define to 1 if you have the `boost_system' library (-lboost_system). */
-/* #undef HAVE_LIBBOOST_SYSTEM */
+#define HAVE_LIBBOOST_SYSTEM 1
 
 /* Define to 1 if you have the `boost_thread' library (-lboost_thread). */
-/* #undef HAVE_LIBBOOST_THREAD */
+#define HAVE_LIBBOOST_THREAD 1
 
 /* Define to 1 if you have the <memory.h> header file. */
 #define HAVE_MEMORY_H 1
-
-/* Define to 1 if stdbool.h conforms to C99. */
-#define HAVE_STDBOOL_H 1
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #define HAVE_STDINT_H 1

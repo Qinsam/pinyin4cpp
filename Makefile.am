@@ -13,7 +13,7 @@ test_SOURCES= $(top_srcdir)/src/ChineseToPinyinResource.cc \
 			$(top_srcdir)/src/PinyinFormatter.cc \
 			$(top_srcdir)/src/PinyinHelper.cc \
 			$(top_srcdir)/src/util/string_util.cc \
-			$(top_srcdir)/src/test.cc
+			$(top_srcdir)/demo/test.cc
 
 include_HEADERS=$(top_srcdir)/include/ChineseToPinyinResource.h \
 			$(top_srcdir)/include/HanyuPinyinCaseType.h \
