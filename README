@@ -27,7 +27,8 @@ demo/test.cc 编译生成   $(install_dir)/bin/test
     hpof.setCaseType(HanyuPinyinCaseType::LOWERCASE);           //拼音小写（默认值）
     hpof.setToneType(HanyuPinyinToneType::WITHOUT_TONE);        //不要声调
     hpof.setToneType(HanyuPinyinToneType::WITH_TONE_NUMBER);    //声调放在拼音后面用数字表示(默认值)
-    hpof.setVCharType(HanyuPinyinVCharType::WITH_V);            //u:转成ü  (默认不转换)
+    hpof.setVCharType(HanyuPinyinVCharType::WITH_U_AND_COLON);  //u:转成
+    hpof.setVCharType(HanyuPinyinVCharType::WITH_V);            //u:转成v  (默认值)
     hpof.setSpellType(HanyuPinyinSpellType::FIRST_LETTER);      //首字母简拼
     hpof.setSpellType(HanyuPinyinSpellType::FULL_LETTER);       //全拼（默认值）
     string res=ph.toHanYuPinyinString(s,hpof);

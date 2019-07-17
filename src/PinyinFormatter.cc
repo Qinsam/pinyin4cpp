@@ -23,8 +23,10 @@ String PinyinFormatter::formatHanyuPinyin(const String &pinyinStr,const String &
         }
     }
 
-    if(HanyuPinyinVCharType::WITH_V == outputFormat.getVCharType()) {
+    if(HanyuPinyinVCharType::WITH_U_AND_COLON == outputFormat.getVCharType()) {
         boost::algorithm::replace_all(res,L"u:",L"ü");
+    }else if(HanyuPinyinVCharType::WITH_V == outputFormat.getVCharType()) {
+        boost::algorithm::replace_all(res,L"u:",L"v");
     }
 
     if(HanyuPinyinCaseType::UPPERCASE == outputFormat.getCaseType()) {

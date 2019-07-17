@@ -5,7 +5,7 @@ HanyuPinyinOutputFormat::HanyuPinyinOutputFormat() {
 }
 
 void HanyuPinyinOutputFormat::restoreDefault() {
-    setVCharType(HanyuPinyinVCharType::WITH_U_AND_COLON);
+    setVCharType(HanyuPinyinVCharType::WITH_V);
     setCaseType(HanyuPinyinCaseType::LOWERCASE);
     setToneType(HanyuPinyinToneType::WITH_TONE_NUMBER);
     setSpellType(HanyuPinyinSpellType::FULL_LETTER);
