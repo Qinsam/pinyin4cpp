@@ -27,7 +27,7 @@ include_HEADERS=$(top_srcdir)/include/ChineseToPinyinResource.h \
 			$(top_srcdir)/src/pinyindb/unicode_to_hanyu_pinyin.h
 
 test_CXXFLAGS=-O0 -fPIC -std=c++11 -fno-strict-aliasing -Wall -Wno-deprecated -Wno-sign-compare
-pinyin4cpp_so_CXXFLAGS=-O0 -fPIC -std=c++11 -fno-strict-aliasing -Wall -Wno-deprecated -Wno-sign-compare
+libpinyin4cpp_so_CXXFLAGS=-O0 -fPIC -std=c++11 -fno-strict-aliasing -Wall -Wno-deprecated -Wno-sign-compare
 
 test_LDFLAGS=-lboost_chrono \
       -lboost_system \
@@ -54,9 +54,9 @@ INCLUDES=-I$(top_srcdir)/include \
 		-I$(top_srcdir)/src \
 		-I$(top_srcdir)/src/pinyindb
 
-pinyin4cpplibdir=$(libdir)
-pinyin4cpplib_PROGRAMS=pinyin4cpp.so
-pinyin4cpp_so_SOURCES=$(top_srcdir)/src/ChineseToPinyinResource.cc \
+libpinyin4cpplibdir=$(libdir)
+libpinyin4cpplib_PROGRAMS=libpinyin4cpp.so
+libpinyin4cpp_so_SOURCES=$(top_srcdir)/src/ChineseToPinyinResource.cc \
 			$(top_srcdir)/src/HanyuPinyinCaseType.cc \
 			$(top_srcdir)/src/HanyuPinyinOutputFormat.cc \
 			$(top_srcdir)/src/HanyuPinyinSpellType.cc \
@@ -66,5 +66,5 @@ pinyin4cpp_so_SOURCES=$(top_srcdir)/src/ChineseToPinyinResource.cc \
 			$(top_srcdir)/src/PinyinHelper.cc \
 			$(top_srcdir)/src/util/string_util.cc
 
-pinyin4cpp_so_LDFLAGS=-shared -fPIC
+libpinyin4cpp_so_LDFLAGS=-shared -fPIC
 

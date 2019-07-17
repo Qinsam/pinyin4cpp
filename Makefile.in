@@ -34,7 +34,7 @@ NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
 bin_PROGRAMS = test$(EXEEXT)
-pinyin4cpplib_PROGRAMS = pinyin4cpp.so$(EXEEXT)
+libpinyin4cpplib_PROGRAMS = libpinyin4cpp.so$(EXEEXT)
 subdir = .
 DIST_COMMON = README $(am__configure_deps) $(include_HEADERS) \
 	$(noinst_HEADERS) $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
@@ -51,22 +51,22 @@ CONFIG_HEADER = config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)" \
-	"$(DESTDIR)$(pinyin4cpplibdir)" "$(DESTDIR)$(includedir)"
-PROGRAMS = $(bin_PROGRAMS) $(pinyin4cpplib_PROGRAMS)
-am_pinyin4cpp_so_OBJECTS =  \
-	pinyin4cpp_so-ChineseToPinyinResource.$(OBJEXT) \
-	pinyin4cpp_so-HanyuPinyinCaseType.$(OBJEXT) \
-	pinyin4cpp_so-HanyuPinyinOutputFormat.$(OBJEXT) \
-	pinyin4cpp_so-HanyuPinyinSpellType.$(OBJEXT) \
-	pinyin4cpp_so-HanyuPinyinToneType.$(OBJEXT) \
-	pinyin4cpp_so-HanyuPinyinVCharType.$(OBJEXT) \
-	pinyin4cpp_so-PinyinFormatter.$(OBJEXT) \
-	pinyin4cpp_so-PinyinHelper.$(OBJEXT) \
-	pinyin4cpp_so-string_util.$(OBJEXT)
-pinyin4cpp_so_OBJECTS = $(am_pinyin4cpp_so_OBJECTS)
-pinyin4cpp_so_LDADD = $(LDADD)
-pinyin4cpp_so_LINK = $(CXXLD) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) \
-	$(pinyin4cpp_so_LDFLAGS) $(LDFLAGS) -o $@
+	"$(DESTDIR)$(libpinyin4cpplibdir)" "$(DESTDIR)$(includedir)"
+PROGRAMS = $(bin_PROGRAMS) $(libpinyin4cpplib_PROGRAMS)
+am_libpinyin4cpp_so_OBJECTS =  \
+	libpinyin4cpp_so-ChineseToPinyinResource.$(OBJEXT) \
+	libpinyin4cpp_so-HanyuPinyinCaseType.$(OBJEXT) \
+	libpinyin4cpp_so-HanyuPinyinOutputFormat.$(OBJEXT) \
+	libpinyin4cpp_so-HanyuPinyinSpellType.$(OBJEXT) \
+	libpinyin4cpp_so-HanyuPinyinToneType.$(OBJEXT) \
+	libpinyin4cpp_so-HanyuPinyinVCharType.$(OBJEXT) \
+	libpinyin4cpp_so-PinyinFormatter.$(OBJEXT) \
+	libpinyin4cpp_so-PinyinHelper.$(OBJEXT) \
+	libpinyin4cpp_so-string_util.$(OBJEXT)
+libpinyin4cpp_so_OBJECTS = $(am_libpinyin4cpp_so_OBJECTS)
+libpinyin4cpp_so_LDADD = $(LDADD)
+libpinyin4cpp_so_LINK = $(CXXLD) $(libpinyin4cpp_so_CXXFLAGS) \
+	$(CXXFLAGS) $(libpinyin4cpp_so_LDFLAGS) $(LDFLAGS) -o $@
 am_test_OBJECTS = test-ChineseToPinyinResource.$(OBJEXT) \
 	test-HanyuPinyinCaseType.$(OBJEXT) \
 	test-HanyuPinyinOutputFormat.$(OBJEXT) \
@@ -88,8 +88,8 @@ CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 CXXLD = $(CXX)
 CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
 	-o $@
-SOURCES = $(pinyin4cpp_so_SOURCES) $(test_SOURCES)
-DIST_SOURCES = $(pinyin4cpp_so_SOURCES) $(test_SOURCES)
+SOURCES = $(libpinyin4cpp_so_SOURCES) $(test_SOURCES)
+DIST_SOURCES = $(libpinyin4cpp_so_SOURCES) $(test_SOURCES)
 am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
 am__vpath_adj = case $$p in \
     $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
@@ -238,7 +238,7 @@ include_HEADERS = $(top_srcdir)/include/ChineseToPinyinResource.h \
 			$(top_srcdir)/src/pinyindb/unicode_to_hanyu_pinyin.h
 
 test_CXXFLAGS = -O0 -fPIC -std=c++11 -fno-strict-aliasing -Wall -Wno-deprecated -Wno-sign-compare
-pinyin4cpp_so_CXXFLAGS = -O0 -fPIC -std=c++11 -fno-strict-aliasing -Wall -Wno-deprecated -Wno-sign-compare
+libpinyin4cpp_so_CXXFLAGS = -O0 -fPIC -std=c++11 -fno-strict-aliasing -Wall -Wno-deprecated -Wno-sign-compare
 test_LDFLAGS = -lboost_chrono \
       -lboost_system \
       -lboost_thread \
@@ -246,8 +246,7 @@ test_LDFLAGS = -lboost_chrono \
 
 test_LDADD = -L/usr/local/lib \
       -L/usr/local/lib64/ \
-      -L/usr/lib64/ \
-      -L/home/qinweiwei/qmodule/boost/lib
+      -L/usr/lib64/
 
 noinst_HEADERS = $(top_srcdir)/include/ChineseToPinyinResource.h \
 			$(top_srcdir)/include/HanyuPinyinCaseType.h \
@@ -265,8 +264,8 @@ INCLUDES = -I$(top_srcdir)/include \
 		-I$(top_srcdir)/src \
 		-I$(top_srcdir)/src/pinyindb
 
-pinyin4cpplibdir = $(libdir)
-pinyin4cpp_so_SOURCES = $(top_srcdir)/src/ChineseToPinyinResource.cc \
+libpinyin4cpplibdir = $(libdir)
+libpinyin4cpp_so_SOURCES = $(top_srcdir)/src/ChineseToPinyinResource.cc \
 			$(top_srcdir)/src/HanyuPinyinCaseType.cc \
 			$(top_srcdir)/src/HanyuPinyinOutputFormat.cc \
 			$(top_srcdir)/src/HanyuPinyinSpellType.cc \
@@ -276,7 +275,7 @@ pinyin4cpp_so_SOURCES = $(top_srcdir)/src/ChineseToPinyinResource.cc \
 			$(top_srcdir)/src/PinyinHelper.cc \
 			$(top_srcdir)/src/util/string_util.cc
 
-pinyin4cpp_so_LDFLAGS = -shared -fPIC
+libpinyin4cpp_so_LDFLAGS = -shared -fPIC
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
@@ -370,10 +369,10 @@ uninstall-binPROGRAMS:
 
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
-install-pinyin4cpplibPROGRAMS: $(pinyin4cpplib_PROGRAMS)
+install-libpinyin4cpplibPROGRAMS: $(libpinyin4cpplib_PROGRAMS)
 	@$(NORMAL_INSTALL)
-	test -z "$(pinyin4cpplibdir)" || $(MKDIR_P) "$(DESTDIR)$(pinyin4cpplibdir)"
-	@list='$(pinyin4cpplib_PROGRAMS)'; test -n "$(pinyin4cpplibdir)" || list=; \
+	test -z "$(libpinyin4cpplibdir)" || $(MKDIR_P) "$(DESTDIR)$(libpinyin4cpplibdir)"
+	@list='$(libpinyin4cpplib_PROGRAMS)'; test -n "$(libpinyin4cpplibdir)" || list=; \
 	for p in $$list; do echo "$$p $$p"; done | \
 	sed 's/$(EXEEXT)$$//' | \
 	while read p p1; do if test -f $$p; \
@@ -390,26 +389,26 @@ install-pinyin4cpplibPROGRAMS: $(pinyin4cpplib_PROGRAMS)
 	while read type dir files; do \
 	    if test "$$dir" = .; then dir=; else dir=/$$dir; fi; \
 	    test -z "$$files" || { \
-	      echo " $(INSTALL_PROGRAM_ENV) $(INSTALL_PROGRAM) $$files '$(DESTDIR)$(pinyin4cpplibdir)$$dir'"; \
-	      $(INSTALL_PROGRAM_ENV) $(INSTALL_PROGRAM) $$files "$(DESTDIR)$(pinyin4cpplibdir)$$dir" || exit $$?; \
+	      echo " $(INSTALL_PROGRAM_ENV) $(INSTALL_PROGRAM) $$files '$(DESTDIR)$(libpinyin4cpplibdir)$$dir'"; \
+	      $(INSTALL_PROGRAM_ENV) $(INSTALL_PROGRAM) $$files "$(DESTDIR)$(libpinyin4cpplibdir)$$dir" || exit $$?; \
 	    } \
 	; done
 
-uninstall-pinyin4cpplibPROGRAMS:
+uninstall-libpinyin4cpplibPROGRAMS:
 	@$(NORMAL_UNINSTALL)
-	@list='$(pinyin4cpplib_PROGRAMS)'; test -n "$(pinyin4cpplibdir)" || list=; \
+	@list='$(libpinyin4cpplib_PROGRAMS)'; test -n "$(libpinyin4cpplibdir)" || list=; \
 	files=`for p in $$list; do echo "$$p"; done | \
 	  sed -e 'h;s,^.*/,,;s/$(EXEEXT)$$//;$(transform)' \
 	      -e 's/$$/$(EXEEXT)/' `; \
 	test -n "$$list" || exit 0; \
-	echo " ( cd '$(DESTDIR)$(pinyin4cpplibdir)' && rm -f" $$files ")"; \
-	cd "$(DESTDIR)$(pinyin4cpplibdir)" && rm -f $$files
+	echo " ( cd '$(DESTDIR)$(libpinyin4cpplibdir)' && rm -f" $$files ")"; \
+	cd "$(DESTDIR)$(libpinyin4cpplibdir)" && rm -f $$files
 
-clean-pinyin4cpplibPROGRAMS:
-	-test -z "$(pinyin4cpplib_PROGRAMS)" || rm -f $(pinyin4cpplib_PROGRAMS)
-pinyin4cpp.so$(EXEEXT): $(pinyin4cpp_so_OBJECTS) $(pinyin4cpp_so_DEPENDENCIES) 
-	@rm -f pinyin4cpp.so$(EXEEXT)
-	$(pinyin4cpp_so_LINK) $(pinyin4cpp_so_OBJECTS) $(pinyin4cpp_so_LDADD) $(LIBS)
+clean-libpinyin4cpplibPROGRAMS:
+	-test -z "$(libpinyin4cpplib_PROGRAMS)" || rm -f $(libpinyin4cpplib_PROGRAMS)
+libpinyin4cpp.so$(EXEEXT): $(libpinyin4cpp_so_OBJECTS) $(libpinyin4cpp_so_DEPENDENCIES) 
+	@rm -f libpinyin4cpp.so$(EXEEXT)
+	$(libpinyin4cpp_so_LINK) $(libpinyin4cpp_so_OBJECTS) $(libpinyin4cpp_so_LDADD) $(LIBS)
 test$(EXEEXT): $(test_OBJECTS) $(test_DEPENDENCIES) 
 	@rm -f test$(EXEEXT)
 	$(test_LINK) $(test_OBJECTS) $(test_LDADD) $(LIBS)
@@ -420,15 +419,15 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pinyin4cpp_so-ChineseToPinyinResource.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pinyin4cpp_so-HanyuPinyinCaseType.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pinyin4cpp_so-HanyuPinyinOutputFormat.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pinyin4cpp_so-HanyuPinyinSpellType.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pinyin4cpp_so-HanyuPinyinToneType.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pinyin4cpp_so-HanyuPinyinVCharType.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pinyin4cpp_so-PinyinFormatter.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pinyin4cpp_so-PinyinHelper.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pinyin4cpp_so-string_util.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpinyin4cpp_so-ChineseToPinyinResource.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpinyin4cpp_so-HanyuPinyinCaseType.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpinyin4cpp_so-HanyuPinyinOutputFormat.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpinyin4cpp_so-HanyuPinyinSpellType.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpinyin4cpp_so-HanyuPinyinToneType.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpinyin4cpp_so-HanyuPinyinVCharType.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpinyin4cpp_so-PinyinFormatter.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpinyin4cpp_so-PinyinHelper.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpinyin4cpp_so-string_util.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-ChineseToPinyinResource.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-HanyuPinyinCaseType.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-HanyuPinyinOutputFormat.Po@am__quote@
@@ -454,131 +453,131 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
-pinyin4cpp_so-ChineseToPinyinResource.o: $(top_srcdir)/src/ChineseToPinyinResource.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT pinyin4cpp_so-ChineseToPinyinResource.o -MD -MP -MF $(DEPDIR)/pinyin4cpp_so-ChineseToPinyinResource.Tpo -c -o pinyin4cpp_so-ChineseToPinyinResource.o `test -f '$(top_srcdir)/src/ChineseToPinyinResource.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/ChineseToPinyinResource.cc
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/pinyin4cpp_so-ChineseToPinyinResource.Tpo $(DEPDIR)/pinyin4cpp_so-ChineseToPinyinResource.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/ChineseToPinyinResource.cc' object='pinyin4cpp_so-ChineseToPinyinResource.o' libtool=no @AMDEPBACKSLASH@
+libpinyin4cpp_so-ChineseToPinyinResource.o: $(top_srcdir)/src/ChineseToPinyinResource.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-ChineseToPinyinResource.o -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-ChineseToPinyinResource.Tpo -c -o libpinyin4cpp_so-ChineseToPinyinResource.o `test -f '$(top_srcdir)/src/ChineseToPinyinResource.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/ChineseToPinyinResource.cc
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libpinyin4cpp_so-ChineseToPinyinResource.Tpo $(DEPDIR)/libpinyin4cpp_so-ChineseToPinyinResource.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/ChineseToPinyinResource.cc' object='libpinyin4cpp_so-ChineseToPinyinResource.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o pinyin4cpp_so-ChineseToPinyinResource.o `test -f '$(top_srcdir)/src/ChineseToPinyinResource.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/ChineseToPinyinResource.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-ChineseToPinyinResource.o `test -f '$(top_srcdir)/src/ChineseToPinyinResource.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/ChineseToPinyinResource.cc
 
-pinyin4cpp_so-ChineseToPinyinResource.obj: $(top_srcdir)/src/ChineseToPinyinResource.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT pinyin4cpp_so-ChineseToPinyinResource.obj -MD -MP -MF $(DEPDIR)/pinyin4cpp_so-ChineseToPinyinResource.Tpo -c -o pinyin4cpp_so-ChineseToPinyinResource.obj `if test -f '$(top_srcdir)/src/ChineseToPinyinResource.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/ChineseToPinyinResource.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/ChineseToPinyinResource.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/pinyin4cpp_so-ChineseToPinyinResource.Tpo $(DEPDIR)/pinyin4cpp_so-ChineseToPinyinResource.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/ChineseToPinyinResource.cc' object='pinyin4cpp_so-ChineseToPinyinResource.obj' libtool=no @AMDEPBACKSLASH@
+libpinyin4cpp_so-ChineseToPinyinResource.obj: $(top_srcdir)/src/ChineseToPinyinResource.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-ChineseToPinyinResource.obj -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-ChineseToPinyinResource.Tpo -c -o libpinyin4cpp_so-ChineseToPinyinResource.obj `if test -f '$(top_srcdir)/src/ChineseToPinyinResource.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/ChineseToPinyinResource.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/ChineseToPinyinResource.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libpinyin4cpp_so-ChineseToPinyinResource.Tpo $(DEPDIR)/libpinyin4cpp_so-ChineseToPinyinResource.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/ChineseToPinyinResource.cc' object='libpinyin4cpp_so-ChineseToPinyinResource.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o pinyin4cpp_so-ChineseToPinyinResource.obj `if test -f '$(top_srcdir)/src/ChineseToPinyinResource.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/ChineseToPinyinResource.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/ChineseToPinyinResource.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-ChineseToPinyinResource.obj `if test -f '$(top_srcdir)/src/ChineseToPinyinResource.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/ChineseToPinyinResource.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/ChineseToPinyinResource.cc'; fi`
 
-pinyin4cpp_so-HanyuPinyinCaseType.o: $(top_srcdir)/src/HanyuPinyinCaseType.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT pinyin4cpp_so-HanyuPinyinCaseType.o -MD -MP -MF $(DEPDIR)/pinyin4cpp_so-HanyuPinyinCaseType.Tpo -c -o pinyin4cpp_so-HanyuPinyinCaseType.o `test -f '$(top_srcdir)/src/HanyuPinyinCaseType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinCaseType.cc
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/pinyin4cpp_so-HanyuPinyinCaseType.Tpo $(DEPDIR)/pinyin4cpp_so-HanyuPinyinCaseType.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/HanyuPinyinCaseType.cc' object='pinyin4cpp_so-HanyuPinyinCaseType.o' libtool=no @AMDEPBACKSLASH@
+libpinyin4cpp_so-HanyuPinyinCaseType.o: $(top_srcdir)/src/HanyuPinyinCaseType.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-HanyuPinyinCaseType.o -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinCaseType.Tpo -c -o libpinyin4cpp_so-HanyuPinyinCaseType.o `test -f '$(top_srcdir)/src/HanyuPinyinCaseType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinCaseType.cc
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinCaseType.Tpo $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinCaseType.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/HanyuPinyinCaseType.cc' object='libpinyin4cpp_so-HanyuPinyinCaseType.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o pinyin4cpp_so-HanyuPinyinCaseType.o `test -f '$(top_srcdir)/src/HanyuPinyinCaseType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinCaseType.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-HanyuPinyinCaseType.o `test -f '$(top_srcdir)/src/HanyuPinyinCaseType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinCaseType.cc
 
-pinyin4cpp_so-HanyuPinyinCaseType.obj: $(top_srcdir)/src/HanyuPinyinCaseType.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT pinyin4cpp_so-HanyuPinyinCaseType.obj -MD -MP -MF $(DEPDIR)/pinyin4cpp_so-HanyuPinyinCaseType.Tpo -c -o pinyin4cpp_so-HanyuPinyinCaseType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinCaseType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinCaseType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinCaseType.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/pinyin4cpp_so-HanyuPinyinCaseType.Tpo $(DEPDIR)/pinyin4cpp_so-HanyuPinyinCaseType.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/HanyuPinyinCaseType.cc' object='pinyin4cpp_so-HanyuPinyinCaseType.obj' libtool=no @AMDEPBACKSLASH@
+libpinyin4cpp_so-HanyuPinyinCaseType.obj: $(top_srcdir)/src/HanyuPinyinCaseType.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-HanyuPinyinCaseType.obj -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinCaseType.Tpo -c -o libpinyin4cpp_so-HanyuPinyinCaseType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinCaseType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinCaseType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinCaseType.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinCaseType.Tpo $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinCaseType.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/HanyuPinyinCaseType.cc' object='libpinyin4cpp_so-HanyuPinyinCaseType.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o pinyin4cpp_so-HanyuPinyinCaseType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinCaseType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinCaseType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinCaseType.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-HanyuPinyinCaseType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinCaseType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinCaseType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinCaseType.cc'; fi`
 
-pinyin4cpp_so-HanyuPinyinOutputFormat.o: $(top_srcdir)/src/HanyuPinyinOutputFormat.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT pinyin4cpp_so-HanyuPinyinOutputFormat.o -MD -MP -MF $(DEPDIR)/pinyin4cpp_so-HanyuPinyinOutputFormat.Tpo -c -o pinyin4cpp_so-HanyuPinyinOutputFormat.o `test -f '$(top_srcdir)/src/HanyuPinyinOutputFormat.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinOutputFormat.cc
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/pinyin4cpp_so-HanyuPinyinOutputFormat.Tpo $(DEPDIR)/pinyin4cpp_so-HanyuPinyinOutputFormat.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/HanyuPinyinOutputFormat.cc' object='pinyin4cpp_so-HanyuPinyinOutputFormat.o' libtool=no @AMDEPBACKSLASH@
+libpinyin4cpp_so-HanyuPinyinOutputFormat.o: $(top_srcdir)/src/HanyuPinyinOutputFormat.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-HanyuPinyinOutputFormat.o -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinOutputFormat.Tpo -c -o libpinyin4cpp_so-HanyuPinyinOutputFormat.o `test -f '$(top_srcdir)/src/HanyuPinyinOutputFormat.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinOutputFormat.cc
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinOutputFormat.Tpo $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinOutputFormat.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/HanyuPinyinOutputFormat.cc' object='libpinyin4cpp_so-HanyuPinyinOutputFormat.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o pinyin4cpp_so-HanyuPinyinOutputFormat.o `test -f '$(top_srcdir)/src/HanyuPinyinOutputFormat.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinOutputFormat.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-HanyuPinyinOutputFormat.o `test -f '$(top_srcdir)/src/HanyuPinyinOutputFormat.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinOutputFormat.cc
 
-pinyin4cpp_so-HanyuPinyinOutputFormat.obj: $(top_srcdir)/src/HanyuPinyinOutputFormat.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT pinyin4cpp_so-HanyuPinyinOutputFormat.obj -MD -MP -MF $(DEPDIR)/pinyin4cpp_so-HanyuPinyinOutputFormat.Tpo -c -o pinyin4cpp_so-HanyuPinyinOutputFormat.obj `if test -f '$(top_srcdir)/src/HanyuPinyinOutputFormat.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinOutputFormat.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinOutputFormat.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/pinyin4cpp_so-HanyuPinyinOutputFormat.Tpo $(DEPDIR)/pinyin4cpp_so-HanyuPinyinOutputFormat.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/HanyuPinyinOutputFormat.cc' object='pinyin4cpp_so-HanyuPinyinOutputFormat.obj' libtool=no @AMDEPBACKSLASH@
+libpinyin4cpp_so-HanyuPinyinOutputFormat.obj: $(top_srcdir)/src/HanyuPinyinOutputFormat.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-HanyuPinyinOutputFormat.obj -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinOutputFormat.Tpo -c -o libpinyin4cpp_so-HanyuPinyinOutputFormat.obj `if test -f '$(top_srcdir)/src/HanyuPinyinOutputFormat.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinOutputFormat.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinOutputFormat.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinOutputFormat.Tpo $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinOutputFormat.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/HanyuPinyinOutputFormat.cc' object='libpinyin4cpp_so-HanyuPinyinOutputFormat.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o pinyin4cpp_so-HanyuPinyinOutputFormat.obj `if test -f '$(top_srcdir)/src/HanyuPinyinOutputFormat.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinOutputFormat.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinOutputFormat.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-HanyuPinyinOutputFormat.obj `if test -f '$(top_srcdir)/src/HanyuPinyinOutputFormat.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinOutputFormat.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinOutputFormat.cc'; fi`
 
-pinyin4cpp_so-HanyuPinyinSpellType.o: $(top_srcdir)/src/HanyuPinyinSpellType.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT pinyin4cpp_so-HanyuPinyinSpellType.o -MD -MP -MF $(DEPDIR)/pinyin4cpp_so-HanyuPinyinSpellType.Tpo -c -o pinyin4cpp_so-HanyuPinyinSpellType.o `test -f '$(top_srcdir)/src/HanyuPinyinSpellType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinSpellType.cc
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/pinyin4cpp_so-HanyuPinyinSpellType.Tpo $(DEPDIR)/pinyin4cpp_so-HanyuPinyinSpellType.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/HanyuPinyinSpellType.cc' object='pinyin4cpp_so-HanyuPinyinSpellType.o' libtool=no @AMDEPBACKSLASH@
+libpinyin4cpp_so-HanyuPinyinSpellType.o: $(top_srcdir)/src/HanyuPinyinSpellType.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-HanyuPinyinSpellType.o -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinSpellType.Tpo -c -o libpinyin4cpp_so-HanyuPinyinSpellType.o `test -f '$(top_srcdir)/src/HanyuPinyinSpellType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinSpellType.cc
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinSpellType.Tpo $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinSpellType.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/HanyuPinyinSpellType.cc' object='libpinyin4cpp_so-HanyuPinyinSpellType.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o pinyin4cpp_so-HanyuPinyinSpellType.o `test -f '$(top_srcdir)/src/HanyuPinyinSpellType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinSpellType.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-HanyuPinyinSpellType.o `test -f '$(top_srcdir)/src/HanyuPinyinSpellType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinSpellType.cc
 
-pinyin4cpp_so-HanyuPinyinSpellType.obj: $(top_srcdir)/src/HanyuPinyinSpellType.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT pinyin4cpp_so-HanyuPinyinSpellType.obj -MD -MP -MF $(DEPDIR)/pinyin4cpp_so-HanyuPinyinSpellType.Tpo -c -o pinyin4cpp_so-HanyuPinyinSpellType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinSpellType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinSpellType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinSpellType.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/pinyin4cpp_so-HanyuPinyinSpellType.Tpo $(DEPDIR)/pinyin4cpp_so-HanyuPinyinSpellType.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/HanyuPinyinSpellType.cc' object='pinyin4cpp_so-HanyuPinyinSpellType.obj' libtool=no @AMDEPBACKSLASH@
+libpinyin4cpp_so-HanyuPinyinSpellType.obj: $(top_srcdir)/src/HanyuPinyinSpellType.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-HanyuPinyinSpellType.obj -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinSpellType.Tpo -c -o libpinyin4cpp_so-HanyuPinyinSpellType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinSpellType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinSpellType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinSpellType.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinSpellType.Tpo $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinSpellType.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/HanyuPinyinSpellType.cc' object='libpinyin4cpp_so-HanyuPinyinSpellType.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o pinyin4cpp_so-HanyuPinyinSpellType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinSpellType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinSpellType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinSpellType.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-HanyuPinyinSpellType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinSpellType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinSpellType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinSpellType.cc'; fi`
 
-pinyin4cpp_so-HanyuPinyinToneType.o: $(top_srcdir)/src/HanyuPinyinToneType.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT pinyin4cpp_so-HanyuPinyinToneType.o -MD -MP -MF $(DEPDIR)/pinyin4cpp_so-HanyuPinyinToneType.Tpo -c -o pinyin4cpp_so-HanyuPinyinToneType.o `test -f '$(top_srcdir)/src/HanyuPinyinToneType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinToneType.cc
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/pinyin4cpp_so-HanyuPinyinToneType.Tpo $(DEPDIR)/pinyin4cpp_so-HanyuPinyinToneType.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/HanyuPinyinToneType.cc' object='pinyin4cpp_so-HanyuPinyinToneType.o' libtool=no @AMDEPBACKSLASH@
+libpinyin4cpp_so-HanyuPinyinToneType.o: $(top_srcdir)/src/HanyuPinyinToneType.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-HanyuPinyinToneType.o -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinToneType.Tpo -c -o libpinyin4cpp_so-HanyuPinyinToneType.o `test -f '$(top_srcdir)/src/HanyuPinyinToneType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinToneType.cc
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinToneType.Tpo $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinToneType.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/HanyuPinyinToneType.cc' object='libpinyin4cpp_so-HanyuPinyinToneType.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o pinyin4cpp_so-HanyuPinyinToneType.o `test -f '$(top_srcdir)/src/HanyuPinyinToneType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinToneType.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-HanyuPinyinToneType.o `test -f '$(top_srcdir)/src/HanyuPinyinToneType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinToneType.cc
 
-pinyin4cpp_so-HanyuPinyinToneType.obj: $(top_srcdir)/src/HanyuPinyinToneType.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT pinyin4cpp_so-HanyuPinyinToneType.obj -MD -MP -MF $(DEPDIR)/pinyin4cpp_so-HanyuPinyinToneType.Tpo -c -o pinyin4cpp_so-HanyuPinyinToneType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinToneType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinToneType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinToneType.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/pinyin4cpp_so-HanyuPinyinToneType.Tpo $(DEPDIR)/pinyin4cpp_so-HanyuPinyinToneType.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/HanyuPinyinToneType.cc' object='pinyin4cpp_so-HanyuPinyinToneType.obj' libtool=no @AMDEPBACKSLASH@
+libpinyin4cpp_so-HanyuPinyinToneType.obj: $(top_srcdir)/src/HanyuPinyinToneType.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-HanyuPinyinToneType.obj -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinToneType.Tpo -c -o libpinyin4cpp_so-HanyuPinyinToneType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinToneType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinToneType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinToneType.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinToneType.Tpo $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinToneType.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/HanyuPinyinToneType.cc' object='libpinyin4cpp_so-HanyuPinyinToneType.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o pinyin4cpp_so-HanyuPinyinToneType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinToneType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinToneType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinToneType.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-HanyuPinyinToneType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinToneType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinToneType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinToneType.cc'; fi`
 
-pinyin4cpp_so-HanyuPinyinVCharType.o: $(top_srcdir)/src/HanyuPinyinVCharType.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT pinyin4cpp_so-HanyuPinyinVCharType.o -MD -MP -MF $(DEPDIR)/pinyin4cpp_so-HanyuPinyinVCharType.Tpo -c -o pinyin4cpp_so-HanyuPinyinVCharType.o `test -f '$(top_srcdir)/src/HanyuPinyinVCharType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinVCharType.cc
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/pinyin4cpp_so-HanyuPinyinVCharType.Tpo $(DEPDIR)/pinyin4cpp_so-HanyuPinyinVCharType.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/HanyuPinyinVCharType.cc' object='pinyin4cpp_so-HanyuPinyinVCharType.o' libtool=no @AMDEPBACKSLASH@
+libpinyin4cpp_so-HanyuPinyinVCharType.o: $(top_srcdir)/src/HanyuPinyinVCharType.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-HanyuPinyinVCharType.o -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinVCharType.Tpo -c -o libpinyin4cpp_so-HanyuPinyinVCharType.o `test -f '$(top_srcdir)/src/HanyuPinyinVCharType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinVCharType.cc
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinVCharType.Tpo $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinVCharType.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/HanyuPinyinVCharType.cc' object='libpinyin4cpp_so-HanyuPinyinVCharType.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o pinyin4cpp_so-HanyuPinyinVCharType.o `test -f '$(top_srcdir)/src/HanyuPinyinVCharType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinVCharType.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-HanyuPinyinVCharType.o `test -f '$(top_srcdir)/src/HanyuPinyinVCharType.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/HanyuPinyinVCharType.cc
 
-pinyin4cpp_so-HanyuPinyinVCharType.obj: $(top_srcdir)/src/HanyuPinyinVCharType.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT pinyin4cpp_so-HanyuPinyinVCharType.obj -MD -MP -MF $(DEPDIR)/pinyin4cpp_so-HanyuPinyinVCharType.Tpo -c -o pinyin4cpp_so-HanyuPinyinVCharType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinVCharType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinVCharType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinVCharType.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/pinyin4cpp_so-HanyuPinyinVCharType.Tpo $(DEPDIR)/pinyin4cpp_so-HanyuPinyinVCharType.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/HanyuPinyinVCharType.cc' object='pinyin4cpp_so-HanyuPinyinVCharType.obj' libtool=no @AMDEPBACKSLASH@
+libpinyin4cpp_so-HanyuPinyinVCharType.obj: $(top_srcdir)/src/HanyuPinyinVCharType.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-HanyuPinyinVCharType.obj -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinVCharType.Tpo -c -o libpinyin4cpp_so-HanyuPinyinVCharType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinVCharType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinVCharType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinVCharType.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinVCharType.Tpo $(DEPDIR)/libpinyin4cpp_so-HanyuPinyinVCharType.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/HanyuPinyinVCharType.cc' object='libpinyin4cpp_so-HanyuPinyinVCharType.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o pinyin4cpp_so-HanyuPinyinVCharType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinVCharType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinVCharType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinVCharType.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-HanyuPinyinVCharType.obj `if test -f '$(top_srcdir)/src/HanyuPinyinVCharType.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/HanyuPinyinVCharType.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/HanyuPinyinVCharType.cc'; fi`
 
-pinyin4cpp_so-PinyinFormatter.o: $(top_srcdir)/src/PinyinFormatter.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT pinyin4cpp_so-PinyinFormatter.o -MD -MP -MF $(DEPDIR)/pinyin4cpp_so-PinyinFormatter.Tpo -c -o pinyin4cpp_so-PinyinFormatter.o `test -f '$(top_srcdir)/src/PinyinFormatter.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/PinyinFormatter.cc
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/pinyin4cpp_so-PinyinFormatter.Tpo $(DEPDIR)/pinyin4cpp_so-PinyinFormatter.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/PinyinFormatter.cc' object='pinyin4cpp_so-PinyinFormatter.o' libtool=no @AMDEPBACKSLASH@
+libpinyin4cpp_so-PinyinFormatter.o: $(top_srcdir)/src/PinyinFormatter.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-PinyinFormatter.o -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-PinyinFormatter.Tpo -c -o libpinyin4cpp_so-PinyinFormatter.o `test -f '$(top_srcdir)/src/PinyinFormatter.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/PinyinFormatter.cc
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libpinyin4cpp_so-PinyinFormatter.Tpo $(DEPDIR)/libpinyin4cpp_so-PinyinFormatter.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/PinyinFormatter.cc' object='libpinyin4cpp_so-PinyinFormatter.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o pinyin4cpp_so-PinyinFormatter.o `test -f '$(top_srcdir)/src/PinyinFormatter.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/PinyinFormatter.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-PinyinFormatter.o `test -f '$(top_srcdir)/src/PinyinFormatter.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/PinyinFormatter.cc
 
-pinyin4cpp_so-PinyinFormatter.obj: $(top_srcdir)/src/PinyinFormatter.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT pinyin4cpp_so-PinyinFormatter.obj -MD -MP -MF $(DEPDIR)/pinyin4cpp_so-PinyinFormatter.Tpo -c -o pinyin4cpp_so-PinyinFormatter.obj `if test -f '$(top_srcdir)/src/PinyinFormatter.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/PinyinFormatter.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/PinyinFormatter.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/pinyin4cpp_so-PinyinFormatter.Tpo $(DEPDIR)/pinyin4cpp_so-PinyinFormatter.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/PinyinFormatter.cc' object='pinyin4cpp_so-PinyinFormatter.obj' libtool=no @AMDEPBACKSLASH@
+libpinyin4cpp_so-PinyinFormatter.obj: $(top_srcdir)/src/PinyinFormatter.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-PinyinFormatter.obj -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-PinyinFormatter.Tpo -c -o libpinyin4cpp_so-PinyinFormatter.obj `if test -f '$(top_srcdir)/src/PinyinFormatter.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/PinyinFormatter.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/PinyinFormatter.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libpinyin4cpp_so-PinyinFormatter.Tpo $(DEPDIR)/libpinyin4cpp_so-PinyinFormatter.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/PinyinFormatter.cc' object='libpinyin4cpp_so-PinyinFormatter.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o pinyin4cpp_so-PinyinFormatter.obj `if test -f '$(top_srcdir)/src/PinyinFormatter.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/PinyinFormatter.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/PinyinFormatter.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-PinyinFormatter.obj `if test -f '$(top_srcdir)/src/PinyinFormatter.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/PinyinFormatter.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/PinyinFormatter.cc'; fi`
 
-pinyin4cpp_so-PinyinHelper.o: $(top_srcdir)/src/PinyinHelper.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT pinyin4cpp_so-PinyinHelper.o -MD -MP -MF $(DEPDIR)/pinyin4cpp_so-PinyinHelper.Tpo -c -o pinyin4cpp_so-PinyinHelper.o `test -f '$(top_srcdir)/src/PinyinHelper.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/PinyinHelper.cc
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/pinyin4cpp_so-PinyinHelper.Tpo $(DEPDIR)/pinyin4cpp_so-PinyinHelper.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/PinyinHelper.cc' object='pinyin4cpp_so-PinyinHelper.o' libtool=no @AMDEPBACKSLASH@
+libpinyin4cpp_so-PinyinHelper.o: $(top_srcdir)/src/PinyinHelper.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-PinyinHelper.o -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-PinyinHelper.Tpo -c -o libpinyin4cpp_so-PinyinHelper.o `test -f '$(top_srcdir)/src/PinyinHelper.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/PinyinHelper.cc
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libpinyin4cpp_so-PinyinHelper.Tpo $(DEPDIR)/libpinyin4cpp_so-PinyinHelper.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/PinyinHelper.cc' object='libpinyin4cpp_so-PinyinHelper.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o pinyin4cpp_so-PinyinHelper.o `test -f '$(top_srcdir)/src/PinyinHelper.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/PinyinHelper.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-PinyinHelper.o `test -f '$(top_srcdir)/src/PinyinHelper.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/PinyinHelper.cc
 
-pinyin4cpp_so-PinyinHelper.obj: $(top_srcdir)/src/PinyinHelper.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT pinyin4cpp_so-PinyinHelper.obj -MD -MP -MF $(DEPDIR)/pinyin4cpp_so-PinyinHelper.Tpo -c -o pinyin4cpp_so-PinyinHelper.obj `if test -f '$(top_srcdir)/src/PinyinHelper.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/PinyinHelper.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/PinyinHelper.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/pinyin4cpp_so-PinyinHelper.Tpo $(DEPDIR)/pinyin4cpp_so-PinyinHelper.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/PinyinHelper.cc' object='pinyin4cpp_so-PinyinHelper.obj' libtool=no @AMDEPBACKSLASH@
+libpinyin4cpp_so-PinyinHelper.obj: $(top_srcdir)/src/PinyinHelper.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-PinyinHelper.obj -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-PinyinHelper.Tpo -c -o libpinyin4cpp_so-PinyinHelper.obj `if test -f '$(top_srcdir)/src/PinyinHelper.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/PinyinHelper.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/PinyinHelper.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libpinyin4cpp_so-PinyinHelper.Tpo $(DEPDIR)/libpinyin4cpp_so-PinyinHelper.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/PinyinHelper.cc' object='libpinyin4cpp_so-PinyinHelper.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o pinyin4cpp_so-PinyinHelper.obj `if test -f '$(top_srcdir)/src/PinyinHelper.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/PinyinHelper.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/PinyinHelper.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-PinyinHelper.obj `if test -f '$(top_srcdir)/src/PinyinHelper.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/PinyinHelper.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/PinyinHelper.cc'; fi`
 
-pinyin4cpp_so-string_util.o: $(top_srcdir)/src/util/string_util.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT pinyin4cpp_so-string_util.o -MD -MP -MF $(DEPDIR)/pinyin4cpp_so-string_util.Tpo -c -o pinyin4cpp_so-string_util.o `test -f '$(top_srcdir)/src/util/string_util.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/util/string_util.cc
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/pinyin4cpp_so-string_util.Tpo $(DEPDIR)/pinyin4cpp_so-string_util.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/util/string_util.cc' object='pinyin4cpp_so-string_util.o' libtool=no @AMDEPBACKSLASH@
+libpinyin4cpp_so-string_util.o: $(top_srcdir)/src/util/string_util.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-string_util.o -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-string_util.Tpo -c -o libpinyin4cpp_so-string_util.o `test -f '$(top_srcdir)/src/util/string_util.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/util/string_util.cc
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libpinyin4cpp_so-string_util.Tpo $(DEPDIR)/libpinyin4cpp_so-string_util.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/util/string_util.cc' object='libpinyin4cpp_so-string_util.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o pinyin4cpp_so-string_util.o `test -f '$(top_srcdir)/src/util/string_util.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/util/string_util.cc
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-string_util.o `test -f '$(top_srcdir)/src/util/string_util.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/util/string_util.cc
 
-pinyin4cpp_so-string_util.obj: $(top_srcdir)/src/util/string_util.cc
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT pinyin4cpp_so-string_util.obj -MD -MP -MF $(DEPDIR)/pinyin4cpp_so-string_util.Tpo -c -o pinyin4cpp_so-string_util.obj `if test -f '$(top_srcdir)/src/util/string_util.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/util/string_util.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/util/string_util.cc'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/pinyin4cpp_so-string_util.Tpo $(DEPDIR)/pinyin4cpp_so-string_util.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/util/string_util.cc' object='pinyin4cpp_so-string_util.obj' libtool=no @AMDEPBACKSLASH@
+libpinyin4cpp_so-string_util.obj: $(top_srcdir)/src/util/string_util.cc
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -MT libpinyin4cpp_so-string_util.obj -MD -MP -MF $(DEPDIR)/libpinyin4cpp_so-string_util.Tpo -c -o libpinyin4cpp_so-string_util.obj `if test -f '$(top_srcdir)/src/util/string_util.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/util/string_util.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/util/string_util.cc'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libpinyin4cpp_so-string_util.Tpo $(DEPDIR)/libpinyin4cpp_so-string_util.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/util/string_util.cc' object='libpinyin4cpp_so-string_util.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o pinyin4cpp_so-string_util.obj `if test -f '$(top_srcdir)/src/util/string_util.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/util/string_util.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/util/string_util.cc'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libpinyin4cpp_so_CXXFLAGS) $(CXXFLAGS) -c -o libpinyin4cpp_so-string_util.obj `if test -f '$(top_srcdir)/src/util/string_util.cc'; then $(CYGPATH_W) '$(top_srcdir)/src/util/string_util.cc'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/util/string_util.cc'; fi`
 
 test-ChineseToPinyinResource.o: $(top_srcdir)/src/ChineseToPinyinResource.cc
 @am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(test_CXXFLAGS) $(CXXFLAGS) -MT test-ChineseToPinyinResource.o -MD -MP -MF $(DEPDIR)/test-ChineseToPinyinResource.Tpo -c -o test-ChineseToPinyinResource.o `test -f '$(top_srcdir)/src/ChineseToPinyinResource.cc' || echo '$(srcdir)/'`$(top_srcdir)/src/ChineseToPinyinResource.cc
@@ -943,7 +942,7 @@ check-am: all-am
 check: check-am
 all-am: Makefile $(PROGRAMS) $(HEADERS) config.h
 installdirs:
-	for dir in "$(DESTDIR)$(bindir)" "$(DESTDIR)$(pinyin4cpplibdir)" "$(DESTDIR)$(includedir)"; do \
+	for dir in "$(DESTDIR)$(bindir)" "$(DESTDIR)$(libpinyin4cpplibdir)" "$(DESTDIR)$(includedir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-am
@@ -973,8 +972,8 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-am
 
-clean-am: clean-binPROGRAMS clean-generic clean-pinyin4cpplibPROGRAMS \
-	mostlyclean-am
+clean-am: clean-binPROGRAMS clean-generic \
+	clean-libpinyin4cpplibPROGRAMS mostlyclean-am
 
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
@@ -995,7 +994,8 @@ info: info-am
 
 info-am:
 
-install-data-am: install-includeHEADERS install-pinyin4cpplibPROGRAMS
+install-data-am: install-includeHEADERS \
+	install-libpinyin4cpplibPROGRAMS
 
 install-dvi: install-dvi-am
 
@@ -1043,12 +1043,12 @@ ps: ps-am
 ps-am:
 
 uninstall-am: uninstall-binPROGRAMS uninstall-includeHEADERS \
-	uninstall-pinyin4cpplibPROGRAMS
+	uninstall-libpinyin4cpplibPROGRAMS
 
 .MAKE: all install-am install-strip
 
 .PHONY: CTAGS GTAGS all all-am am--refresh check check-am clean \
-	clean-binPROGRAMS clean-generic clean-pinyin4cpplibPROGRAMS \
+	clean-binPROGRAMS clean-generic clean-libpinyin4cpplibPROGRAMS \
 	ctags dist dist-all dist-bzip2 dist-gzip dist-lzma dist-shar \
 	dist-tarZ dist-xz dist-zip distcheck distclean \
 	distclean-compile distclean-generic distclean-hdr \
@@ -1057,13 +1057,13 @@ uninstall-am: uninstall-binPROGRAMS uninstall-includeHEADERS \
 	install-binPROGRAMS install-data install-data-am install-dvi \
 	install-dvi-am install-exec install-exec-am install-html \
 	install-html-am install-includeHEADERS install-info \
-	install-info-am install-man install-pdf install-pdf-am \
-	install-pinyin4cpplibPROGRAMS install-ps install-ps-am \
+	install-info-am install-libpinyin4cpplibPROGRAMS install-man \
+	install-pdf install-pdf-am install-ps install-ps-am \
 	install-strip installcheck installcheck-am installdirs \
 	maintainer-clean maintainer-clean-generic mostlyclean \
 	mostlyclean-compile mostlyclean-generic pdf pdf-am ps ps-am \
 	tags uninstall uninstall-am uninstall-binPROGRAMS \
-	uninstall-includeHEADERS uninstall-pinyin4cpplibPROGRAMS
+	uninstall-includeHEADERS uninstall-libpinyin4cpplibPROGRAMS
 
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
