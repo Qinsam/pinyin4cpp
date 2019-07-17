@@ -263,8 +263,7 @@ noinst_HEADERS = $(top_srcdir)/include/ChineseToPinyinResource.h \
 INCLUDES = -I$(top_srcdir)/include \
 		-I$(top_srcdir)/include/util \
 		-I$(top_srcdir)/src \
-		-I$(top_srcdir)/src/pinyindb \
-		-I/home/qinweiwei/qmodule/boost/include
+		-I$(top_srcdir)/src/pinyindb
 
 pinyin4cpplibdir = $(libdir)
 pinyin4cpp_so_SOURCES = $(top_srcdir)/src/ChineseToPinyinResource.cc \

@@ -36,8 +36,7 @@ test_LDFLAGS=-lboost_chrono \
 
 test_LDADD=-L/usr/local/lib \
       -L/usr/local/lib64/ \
-      -L/usr/lib64/ \
-      -L/home/qinweiwei/qmodule/boost/lib
+      -L/usr/lib64/
 
 noinst_HEADERS= $(top_srcdir)/include/ChineseToPinyinResource.h \
 			$(top_srcdir)/include/HanyuPinyinCaseType.h \
@@ -53,8 +52,7 @@ noinst_HEADERS= $(top_srcdir)/include/ChineseToPinyinResource.h \
 INCLUDES=-I$(top_srcdir)/include \
 		-I$(top_srcdir)/include/util \
 		-I$(top_srcdir)/src \
-		-I$(top_srcdir)/src/pinyindb \
-		-I/home/qinweiwei/qmodule/boost/include
+		-I$(top_srcdir)/src/pinyindb
 
 pinyin4cpplibdir=$(libdir)
 pinyin4cpplib_PROGRAMS=pinyin4cpp.so
